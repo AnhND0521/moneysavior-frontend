@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { BiChevronUp, BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi'
 import DateRangeTabs from '../components/DateRangeTabs'
-import Navbar from '../components/Navbar'
 import CategoryChart from '../components/CategoryChart'
 
 const Home = () => {
@@ -65,7 +64,6 @@ const Home = () => {
             ]
           }/>
         </div>
-        <Navbar />
       </div>
     </>
   )
