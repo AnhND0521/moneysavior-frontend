@@ -1,7 +1,7 @@
 import React from 'react'
 import { BiChevronLeft, BiSort } from 'react-icons/bi'
 import DateRangeTabs from '../components/DateRangeTabs'
-import Expense from '../components/Expense'
+import Transaction from '../components/Transaction'
 import { Link } from 'react-router-dom';
 
 const Statistics = () => {
@@ -18,16 +18,16 @@ const Statistics = () => {
       <div className='px-6'>
         <DateRangeTabs />
       </div>
-      <section className='w-full px-4'>
+      <section className='w-full px-6'>
         <div className='mb-4 flex items-center justify-between'>
           <h4 className='w-full font-bold text-lg'>Các khoản chi nhiều nhất</h4>
           <BiSort size="1.5rem"/>
         </div>
         <div className='w-full flex flex-col gap-2'>
-          <Expense />
-          <Expense />
-          <Expense />
-          <Expense />
+          {/* <Transaction />
+          <Transaction />
+          <Transaction />
+          <Transaction /> */}
         </div>
       </section>
     </div>

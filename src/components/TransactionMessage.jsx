@@ -11,7 +11,7 @@ const TransactionMessage = (props) => {
       </div>
       <div className='w-full flex justify-between'>
         <p className='text-xl font-semibold'>{description}</p>
-        <p className={`text-xl font-semibold text-${type == "INCOME" ? "green" : "red"}`}>
+        <p className={`text-xl font-semibold ${type == "INCOME" ? "text-green" : "text-red"}`}>
           {type == "INCOME" ? "+" : "-"} ₫{amount.toLocaleString()}
         </p>
       </div>
