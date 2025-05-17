@@ -9,7 +9,7 @@ const Transaction = (props) => {
         <p className='text-gray-text text-sm'>{date}</p>
       </div> 
       <p className={`${type == "INCOME" ? "text-green" : "text-red"} text-lg font-semibold`}>
-        {type == "INCOME" ? "+" : "-"} ₫{amount.toLocaleString()}
+        {type == "INCOME" ? "+" : "-"} {amount.toLocaleString()} ₫
       </p>
     </div>
   )

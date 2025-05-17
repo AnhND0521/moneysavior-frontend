@@ -193,10 +193,10 @@ const Chatbot = () => {
             disabled={isSending} // Vô hiệu hóa input khi đang gửi
           />
           <div className="flex items-center gap-4">
-            <button disabled={isSending}>
+            <button type="button" disabled={isSending}>
               <BiSolidMicrophone size="1.8rem" />
             </button>
-            <button type="submit" disabled={isSending}>
+            <button type="submit" disabled={isSending || input.trim() === ''}>
               <BiSolidSend size="1.8rem" />
             </button>
           </div>

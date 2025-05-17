@@ -16,12 +16,24 @@ const History = () => {
     month: now.getMonth() + 1,
     year: now.getFullYear(),
   });
+  const [categories, setCategories] = useState([]);
+
+  const fetchCategories = async () => {
+    const response = await fetch(`${environment.serverURL}/api/v1/categories`);
+
+    if (response.ok) {
+      const categoryData = await response.json();
+      setCategories(categoryData);
+    }
+  };
 
   const fetchTransactions = async () => {
     const response = await fetch(
       `${environment.serverURL}/api/v1/transactions?userUuid=${userUuid}${
         filter.type ? `&type=${filter.type}` : ""
-      }&year=${filter.year}&month=${filter.month}`
+      }&${filter.category ? `&category=${filter.category}` : ""}&year=${
+        filter.year
+      }&month=${filter.month}`
     );
 
     if (response.ok) {
@@ -31,12 +43,39 @@ const History = () => {
   };
 
   useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
     fetchTransactions();
   }, [filter]);
 
   const transactionHistory = transactions.map((transaction) => (
     <Transaction key={transaction.uuid} transaction={transaction} />
   ));
+
+  const handleFilterChange = (e) => {
+    let type;
+    let category = null;
+    if (e.target.value == "ALL") {
+      type = null;
+    } else if (e.target.value == "INCOME") {
+      type = "INCOME";
+    } else {
+      type = "EXPENSE";
+      if (e.target.value.includes("|")) {
+        const split = e.target.value.split("|");
+        category = split[1];
+      }
+    }
+    const newFilter = {
+      ...filter,
+      type: type,
+      category: category,
+    };
+    console.log("Filter: ", newFilter);
+    setFilter(newFilter);
+  };
 
   return (
     <div className="relative w-screen h-screen bg-white">
@@ -83,22 +122,26 @@ const History = () => {
           name="daterange"
           id="daterange"
           className="w-full h-10 mb-4 rounded-md border border-gray-text text-center text-sm text-gray-text"
-          onChange={(e) =>
-            setFilter({
-              ...filter,
-              type: e.target.value == "ALL" ? null : e.target.value,
-            })
-          }
+          onChange={handleFilterChange}
         >
-          <option value="ALL" className="text-xs">
+          <option key="ALL" value="ALL" className="text-xs">
             Tất cả
           </option>
-          <option value="EXPENSE" className="text-xs">
-            Chi tiêu
-          </option>
-          <option value="INCOME" className="text-xs">
+          <option key="INCOME" value="INCOME" className="text-xs">
             Thu nhập
           </option>
+          <option key="EXPENSE" value="EXPENSE" className="text-xs">
+            Chi tiêu
+          </option>
+          {categories.map((category) => (
+            <option
+              key={category}
+              value={"EXPENSE|" + category}
+              className="text-xs"
+            >
+              Chi tiêu - {category}
+            </option>
+          ))}
         </select>
       </div>
       <section className="w-full h-3/5 overflow-y-scroll px-4">
