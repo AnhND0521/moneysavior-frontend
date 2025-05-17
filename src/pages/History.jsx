@@ -15,8 +15,6 @@ const History = () => {
     year: now.getFullYear(),
   });
 
-  console.log(filter);
-
   const fetchTransactions = async () => {
     const response = await fetch(`http://127.0.0.1:8080/api/v1/transactions?userUuid=${userUuid}${filter.type ? `&type=${filter.type}` : ""}&year=${filter.year}&month=${filter.month}`);
 

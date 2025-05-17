@@ -3,20 +3,25 @@ import { BiChevronUp, BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi'
 import DateRangeTabs from '../components/DateRangeTabs'
 import CategoryChart from '../components/CategoryChart'
 import { LoginContext } from '../contexts/LoginContext'
+import getDateRange from '../utils/getDateRange'
+import formatDate from '../utils/formatDate'
 
 const Home = () => {
   const { userUuid } = useContext(LoginContext);
   const now = new Date();
-  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-  const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-  const startDate = firstDayOfMonth.toISOString().substring(0, 10);
-  const endDate = lastDayOfMonth.toISOString().substring(0, 10);
+  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  const startDate = formatDate(firstDayOfMonth);
+  const endDate = formatDate(lastDayOfMonth);
 
   const [overview, setOverview] = useState({
     balance: 0,
     totalIncomes: 0,
     totalExpenses: 0,
-  })
+  });
+  const [categorySummary, setCategorySummary] = useState([]);
+
+  const [dateRange, setDateRange] = useState(0);
 
   const fetchOverview = async () => {
     const response = await fetch(`http://127.0.0.1:8080/api/v1/reports/overview?userUuid=${userUuid}&startDate=${startDate}&endDate=${endDate}`);
@@ -27,9 +32,23 @@ const Home = () => {
     }
   }
 
+  const fetchCategorySummary = async () => {
+    const { start, end } = getDateRange(dateRange);
+    const response = await fetch(`http://127.0.0.1:8080/api/v1/reports/category-summary?userUuid=${userUuid}&startDate=${start}&endDate=${end}`);
+
+    if (response.ok) {
+      const categorySummaryData = await response.json();
+      setCategorySummary(categorySummaryData)
+    }
+  }
+
   useEffect(() => {
     fetchOverview();
   }, []);
+
+  useEffect(() => {
+    fetchCategorySummary();
+  }, [dateRange]);
 
   return (
     <>
@@ -68,7 +87,7 @@ const Home = () => {
           </div>
         </div>
         <div className='px-6'>
-          <DateRangeTabs />
+          <DateRangeTabs dateRange={dateRange}setDateRange={setDateRange} />
           <select
             name="daterange"
             id="daterange"
@@ -81,15 +100,7 @@ const Home = () => {
           </select>
         </div>
         <div className='w-full h-1/3'>
-          <CategoryChart data={
-            [
-              {name: "Ăn uống", value: 458},
-              {name: "Đi lại", value: 83},
-              {name: "Giải trí", value: 83},
-              {name: "Mua sắm", value: 83},
-              {name: "Nhà ở", value: 293},
-            ]
-          }/>
+          <CategoryChart categorySummary={categorySummary}/>
         </div>
       </div>
     </>

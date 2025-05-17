@@ -2,7 +2,14 @@ import React from 'react';
 import { Pie, PieChart, Cell, ResponsiveContainer } from 'recharts';
 
 const CategoryChart = (props) => {
-  const data = props.data;
+  const categorySummary = props.categorySummary;
+  console.log(categorySummary);
+  const data = categorySummary.map(category => {
+    return {
+      name: category.categoryName,
+      value: category.totalAmount,
+    }
+  });
 
   const colors = [
     "#7678F5", "#DA4348", "#FFA216", "#4FBE56", "#DE62DE"
@@ -17,10 +24,12 @@ const CategoryChart = (props) => {
 
     return (
       <>
-        <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central">
-          <tspan x={x} dy="-0.6em">{name}</tspan>
-          <tspan x={x} dy="1.2em">{`${(percent * 100).toFixed(0)}%`}</tspan>
-        </text>
+        {percent * 100 >= 5 &&
+          <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central">
+            <tspan x={x} dy="-0.6em">{name}</tspan>
+            <tspan x={x} dy="1.2em">{`${(percent * 100).toFixed(0)}%`}</tspan>
+          </text>
+        }
       </>
     );
   };

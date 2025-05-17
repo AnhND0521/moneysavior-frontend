@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BiChevronLeft, BiSort } from 'react-icons/bi'
 import DateRangeTabs from '../components/DateRangeTabs'
 import Transaction from '../components/Transaction'
 import { Link } from 'react-router-dom';
 
 const Statistics = () => {
+  const [dateRange, setDateRange] = useState(0);
+
   return (
     <div className='relative w-screen h-screen bg-white'>
       <div className='relative w-full h-1/10 flex items-center text-black'>
@@ -16,7 +18,7 @@ const Statistics = () => {
         </div>
       </div>
       <div className='px-6'>
-        <DateRangeTabs />
+        <DateRangeTabs dateRange={dateRange} setDateRange={setDateRange} />
       </div>
       <section className='w-full px-6'>
         <div className='mb-4 flex items-center justify-between'>
