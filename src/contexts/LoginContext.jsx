@@ -6,6 +6,7 @@ export const LoginContext = createContext();
 export const LoginProvider = ({ children }) => {
   const [userUuid, setUserUuid] = useState(null);
   const [email, setEmail] = useState("nguyenducanh2105@gmail.com");
+  const [fullName, setFullName] = useState("");
 
   const init = async () => {
     if (userUuid === null) {
@@ -26,6 +27,7 @@ export const LoginProvider = ({ children }) => {
       if (response.ok) {
         const responseData = await response.json();
         setUserUuid(responseData.userUuid);
+        setFullName(responseData.fullName);
       }
     }
   };
@@ -35,7 +37,7 @@ export const LoginProvider = ({ children }) => {
   }, []);
 
   return (
-    <LoginContext.Provider value={{ userUuid, setUserUuid, email, setEmail }}>
+    <LoginContext.Provider value={{ userUuid, setUserUuid, email, setEmail, fullName, setFullName }}>
       {children}
     </LoginContext.Provider>
   );
