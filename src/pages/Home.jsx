@@ -40,17 +40,18 @@ const Home = () => {
 
     if (response.ok) {
       const categorySummaryData = (await response.json()).data;
+      console.log(categorySummaryData);
       setCategorySummary(categorySummaryData);
     }
   };
 
   useEffect(() => {
     fetchOverview();
-  }, []);
+  }, [userUuid]);
 
   useEffect(() => {
     fetchCategorySummary();
-  }, [dateRange]);
+  }, [userUuid, dateRange]);
 
   return (
     <>
