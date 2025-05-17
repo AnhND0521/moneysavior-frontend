@@ -6,6 +6,7 @@ import { LoginContext } from '../contexts/LoginContext';
 import getDateRange from '../utils/getDateRange';
 import formatDate from '../utils/formatDate';
 import environment from '../environments/environment';
+import NoTransactionsText from '../components/NoTransactionsText';
 
 const Home = () => {
   const { userUuid } = useContext(LoginContext);
@@ -102,7 +103,7 @@ const Home = () => {
         </div>
         <div className='w-full h-1/3'>
           {categorySummary && categorySummary.length === 0 ? (
-            <p className='text-center text-gray-600 mt-10'>Chưa có giao dịch nào. <br />Bắt đầu ghi chép chi tiêu ngay!</p>
+            <NoTransactionsText />
           ) : (
             <CategoryChart categorySummary={categorySummary}/>
           )}
