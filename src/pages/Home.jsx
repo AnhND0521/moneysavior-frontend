@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { BiChevronUp, BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi'
-import DateRangeTabs from '../components/DateRangeTabs'
-import CategoryChart from '../components/CategoryChart'
-import { LoginContext } from '../contexts/LoginContext'
-import getDateRange from '../utils/getDateRange'
-import formatDate from '../utils/formatDate'
-import environment from '../environments/environment'
+import React, { useContext, useEffect, useState } from 'react';
+import { BiChevronUp, BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi';
+import DateRangeTabs from '../components/DateRangeTabs';
+import CategoryChart from '../components/CategoryChart';
+import { LoginContext } from '../contexts/LoginContext';
+import getDateRange from '../utils/getDateRange';
+import formatDate from '../utils/formatDate';
+import environment from '../environments/environment';
 
 const Home = () => {
   const { userUuid } = useContext(LoginContext);
@@ -31,17 +31,17 @@ const Home = () => {
       const overviewData = await response.json();
       setOverview(overviewData);
     }
-  }
+  };
 
   const fetchCategorySummary = async () => {
     const { start, end } = getDateRange(dateRange);
     const response = await fetch(`${environment.serverURL}/api/v1/reports/category-summary?userUuid=${userUuid}&startDate=${start}&endDate=${end}`);
 
     if (response.ok) {
-      const categorySummaryData = await response.json();
-      setCategorySummary(categorySummaryData)
+      const categorySummaryData = (await response.json()).data;
+      setCategorySummary(categorySummaryData);
     }
-  }
+  };
 
   useEffect(() => {
     fetchOverview();
@@ -63,10 +63,10 @@ const Home = () => {
           </div>
           <div className='absolute top-2/9 w-full h-5 rounded-b-[50%] bg-primary'></div>
           <div className='absolute top-1/8 w-full h-1/5 px-4'>
-            <div className='w-full h-full p-4 flex flex-col justify-between bg-secondary rounded-2xl shadow-xl text-white'> 
+            <div className='w-full h-full p-4 flex flex-col justify-between bg-secondary rounded-2xl shadow-xl text-white'>
               <div>
                 <h4 className='flex items-center gap-1 text-sm font-medium'>Tổng số dư <BiChevronUp size="1.2rem"/></h4>
-                <h2 className='text-2xl font-bold'>₫ {overview.balance.toLocaleString()}</h2>
+                <h2 className='text-2xl font-bold'>{overview.balance.toLocaleString()} ₫</h2>
               </div>
               <div className='w-full flex'>
                 <div className='w-1/2'>
@@ -74,14 +74,14 @@ const Home = () => {
                     <div className='p-1 rounded-full bg-white-transparent'><BiUpArrowAlt /></div>
                     <p className='text-sm text-lightGray-text'>Thu nhập</p>
                   </div>
-                  <h3 className='font-semibold'>₫ {overview.totalIncomes.toLocaleString()}</h3>
+                  <h3 className='font-semibold'>{overview.totalIncomes.toLocaleString()} ₫</h3>
                 </div>
                 <div>
                   <div className='flex items-center gap-1'>
                     <div className='p-1 rounded-full bg-white-transparent'><BiDownArrowAlt /></div>
                     <p className='text-sm text-lightGray-text'>Chi tiêu</p>
                   </div>
-                  <h3 className='font-semibold'>₫ {overview.totalExpenses.toLocaleString()}</h3>
+                  <h3 className='font-semibold'>{overview.totalExpenses.toLocaleString()} ₫</h3>
                 </div>
               </div>
             </div>
@@ -101,11 +101,15 @@ const Home = () => {
           </select>
         </div>
         <div className='w-full h-1/3'>
-          <CategoryChart categorySummary={categorySummary}/>
+          {categorySummary && categorySummary.length === 0 ? (
+            <p className='text-center text-gray-600 mt-10'>Chưa có giao dịch nào. <br />Bắt đầu ghi chép chi tiêu ngay!</p>
+          ) : (
+            <CategoryChart categorySummary={categorySummary}/>
+          )}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
