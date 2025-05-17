@@ -5,6 +5,7 @@ import CategoryChart from '../components/CategoryChart'
 import { LoginContext } from '../contexts/LoginContext'
 import getDateRange from '../utils/getDateRange'
 import formatDate from '../utils/formatDate'
+import environment from '../environments/environment'
 
 const Home = () => {
   const { userUuid } = useContext(LoginContext);
@@ -24,7 +25,7 @@ const Home = () => {
   const [dateRange, setDateRange] = useState(0);
 
   const fetchOverview = async () => {
-    const response = await fetch(`http://127.0.0.1:8080/api/v1/reports/overview?userUuid=${userUuid}&startDate=${startDate}&endDate=${endDate}`);
+    const response = await fetch(`${environment.serverURL}/api/v1/reports/overview?userUuid=${userUuid}&startDate=${startDate}&endDate=${endDate}`);
 
     if (response.ok) {
       const overviewData = await response.json();
@@ -34,7 +35,7 @@ const Home = () => {
 
   const fetchCategorySummary = async () => {
     const { start, end } = getDateRange(dateRange);
-    const response = await fetch(`http://127.0.0.1:8080/api/v1/reports/category-summary?userUuid=${userUuid}&startDate=${start}&endDate=${end}`);
+    const response = await fetch(`${environment.serverURL}/api/v1/reports/category-summary?userUuid=${userUuid}&startDate=${start}&endDate=${end}`);
 
     if (response.ok) {
       const categorySummaryData = await response.json();

@@ -4,6 +4,7 @@ import Transaction from '../components/Transaction'
 import { Link } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
 import changeMonth from '../utils/changeMonth';
+import environment from '../environments/environment';
 
 const History = () => {
   const { userUuid } = useContext(LoginContext);
@@ -16,7 +17,7 @@ const History = () => {
   });
 
   const fetchTransactions = async () => {
-    const response = await fetch(`http://127.0.0.1:8080/api/v1/transactions?userUuid=${userUuid}${filter.type ? `&type=${filter.type}` : ""}&year=${filter.year}&month=${filter.month}`);
+    const response = await fetch(`${environment.serverURL}/api/v1/transactions?userUuid=${userUuid}${filter.type ? `&type=${filter.type}` : ""}&year=${filter.year}&month=${filter.month}`);
 
     if (response.ok) {
       const transactionData = await response.json();

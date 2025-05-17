@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { LoginContext } from "../contexts/LoginContext";
 import Message from "../components/Message";
 import TransactionMessage from "../components/TransactionMessage";
+import environment from "../environments/environment";
 
 const Chatbot = () => {
   const { userUuid } = useContext(LoginContext);
@@ -12,7 +13,7 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
 
   const fetchMessages = async () => {
-    const response = await fetch(`http://127.0.0.1:8080/api/v1/chatbot/history?userUuid=${userUuid}`);
+    const response = await fetch(`${environment.serverURL}/api/v1/chatbot/history?userUuid=${userUuid}`);
 
     if (response.ok) {
       const chatMessages = await response.json();
@@ -79,7 +80,7 @@ const Chatbot = () => {
     setInput("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8080/api/v1/transactions:auto", {
+      const response = await fetch("${environment.serverURL}/api/v1/transactions:auto", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

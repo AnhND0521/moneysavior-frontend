@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { LoginContext } from '../contexts/LoginContext';
+import environment from '../environments/environment';
 
 const Profile = () => {
   const { setUserUuid } = useContext(LoginContext);
@@ -10,7 +11,7 @@ const Profile = () => {
     let data = {}
     formData.forEach((value, key) => data[key] = value);
 
-    const response = await fetch("http://127.0.0.1:8080/api/v1/accounts:fake-login", {
+    const response = await fetch(`${environment.serverURL}/api/v1/accounts:fake-login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
