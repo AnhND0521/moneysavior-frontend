@@ -17,9 +17,9 @@ const TransactionMessage = (props) => {
       </div>
       {
         type == "INCOME" ?
-        <p className='text-sm text-gray-text'>{'>'}Thu nhập</p>
+        <p className='text-sm text-gray-text'>{'> '}Thu nhập</p>
         :
-        <p className='text-sm text-gray-text'>{'>'}Chi tiêu{'>'}{category}</p>
+        <p className='text-sm text-gray-text'>{'> '}Chi tiêu{' > '}{category}</p>
       }
     </div>
   )
