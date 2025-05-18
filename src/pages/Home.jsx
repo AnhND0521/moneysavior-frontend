@@ -7,6 +7,7 @@ import getDateOptions from "../utils/getDateOptions";
 import { formatDateISO } from "../utils/dateFormatter";
 import environment from "../environments/environment";
 import NoTransactionsText from "../components/NoTransactionsText";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { userUuid, fullName } = useContext(LoginContext);
@@ -88,42 +89,44 @@ const Home = () => {
             </div>
           </div>
           <div className="absolute top-2/9 w-full h-5 rounded-b-[50%] bg-primary"></div>
-          <div className="absolute top-1/8 w-full h-1/5 px-4">
-            <div className="w-full h-full p-4 flex flex-col justify-between bg-secondary rounded-2xl shadow-xl text-white">
-              <div>
-                <h4 className="flex items-center gap-1 text-sm font-medium">
-                  Tổng số dư <BiChevronUp size="1.2rem" />
-                </h4>
-                <h2 className="text-2xl font-bold">
-                  {overview.balance.toLocaleString()} ₫
-                </h2>
-              </div>
-              <div className="w-full flex">
-                <div className="w-1/2">
-                  <div className="flex items-center gap-1">
-                    <div className="p-1 rounded-full bg-white-transparent">
-                      <BiUpArrowAlt />
-                    </div>
-                    <p className="text-sm text-lightGray-text">Thu nhập</p>
-                  </div>
-                  <h3 className="font-semibold">
-                    {overview.totalIncomes.toLocaleString()} ₫
-                  </h3>
-                </div>
+          <Link to={"/statistics"}>
+            <div className="absolute top-1/8 w-full h-1/5 px-4">
+              <div className="w-full h-full p-4 flex flex-col justify-between bg-secondary rounded-2xl shadow-xl text-white">
                 <div>
-                  <div className="flex items-center gap-1">
-                    <div className="p-1 rounded-full bg-white-transparent">
-                      <BiDownArrowAlt />
+                  <h4 className="flex items-center gap-1 text-sm font-medium">
+                    Tổng số dư <BiChevronUp size="1.2rem" />
+                  </h4>
+                  <h2 className="text-2xl font-bold">
+                    {overview.balance.toLocaleString()} ₫
+                  </h2>
+                </div>
+                <div className="w-full flex">
+                  <div className="w-1/2">
+                    <div className="flex items-center gap-1">
+                      <div className="p-1 rounded-full bg-white-transparent">
+                        <BiUpArrowAlt />
+                      </div>
+                      <p className="text-sm text-lightGray-text">Thu nhập</p>
                     </div>
-                    <p className="text-sm text-lightGray-text">Chi tiêu</p>
+                    <h3 className="font-semibold">
+                      {overview.totalIncomes.toLocaleString()} ₫
+                    </h3>
                   </div>
-                  <h3 className="font-semibold">
-                    {overview.totalExpenses.toLocaleString()} ₫
-                  </h3>
+                  <div>
+                    <div className="flex items-center gap-1">
+                      <div className="p-1 rounded-full bg-white-transparent">
+                        <BiDownArrowAlt />
+                      </div>
+                      <p className="text-sm text-lightGray-text">Chi tiêu</p>
+                    </div>
+                    <h3 className="font-semibold">
+                      {overview.totalExpenses.toLocaleString()} ₫
+                    </h3>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="px-6">
           <DateRangeTabs

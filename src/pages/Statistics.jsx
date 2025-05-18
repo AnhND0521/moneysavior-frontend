@@ -2,7 +2,6 @@ import React, { use, useContext, useEffect, useState } from "react";
 import { BiChevronLeft, BiSort } from "react-icons/bi";
 import Transaction from "../components/Transaction";
 import { Link } from "react-router-dom";
-import getDateOptions from "../utils/getDateOptions";
 import environment from "../environments/environment";
 import { LoginContext } from "../contexts/LoginContext";
 import DateRangeTabs from "../components/DateRangeTabs";

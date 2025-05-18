@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -6,31 +6,48 @@ import {
   YAxis,
   ResponsiveContainer,
   Dot,
-} from 'recharts';
+} from "recharts";
 
 const CustomDot = (props) => {
   const { cx, cy, value, payload, activePoint, height } = props;
-  const isHighlighted = payload && activePoint && payload.period === activePoint.period;
-  const isTopHalf = cy < height / 2;
-  const textY = isTopHalf ? cy + 25 : cy - 35;
-  const arrowPoints = isTopHalf ? `0,0 5,5 -5,5` : `0,0 5,-5 -5,-5`;
-  const rectY = isTopHalf ? 10 : -35;
+  const isHighlighted =
+    payload && activePoint && payload.period === activePoint.period;
+  const isNearTop = cy < height / 5;
+  const textY = isNearTop ? cy + 25 : cy - 35;
+  const arrowPoints = isNearTop ? `0,0 5,5 -5,5` : `0,0 5,-5 -5,-5`;
+  const rectY = isNearTop ? 10 : -35;
 
   if (isHighlighted) {
     return (
       <>
         <circle cx={cx} cy={cy} r={8} fill="#38ada9" />
-        <g transform={`translate(${cx}, ${textY - (isTopHalf ? 5 : -15)})`}>
+        <g transform={`translate(${cx}, ${textY - (isNearTop ? 5 : -15)})`}>
           <path
             d={`M${arrowPoints} Z`}
             fill="#ffffff"
             stroke="#38ada9"
             strokeWidth={1}
           />
-          <text x="0" y={isTopHalf ? rectY + 14 : rectY + 14} textAnchor="middle" dominantBaseline="middle" fill="#38ada9" fontSize={12} fontWeight="bold">
+          <text
+            x="0"
+            y={isNearTop ? rectY + 14 : rectY + 14}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="#38ada9"
+            fontSize={12}
+            fontWeight="bold"
+          >
             {value.toLocaleString()} ₫
           </text>
         </g>
+        <line
+          x1={cx}
+          y1={cy + 8}
+          x2={cx}
+          y2={height < cy ? cy + 8 : height}
+          stroke="#ccc"
+          strokeDasharray="3 3"
+        />
       </>
     );
   }
@@ -38,13 +55,14 @@ const CustomDot = (props) => {
   return <circle cx={cx} cy={cy} r={4} fill="#38ada9" />;
 };
 
-const TransactionTimelineChart = ({data, setSelectedColumn}) => {
+const TransactionTimelineChart = ({ data, setSelectedColumn }) => {
   const [activePoint, setActivePoint] = useState(null);
   const chartContainerRef = useRef(null);
 
   useEffect(() => {
     if (chartContainerRef.current) {
-      chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
+      chartContainerRef.current.scrollLeft =
+        chartContainerRef.current.scrollWidth;
     }
   }, [data]);
 
@@ -62,7 +80,7 @@ const TransactionTimelineChart = ({data, setSelectedColumn}) => {
   };
 
   return (
-    <div style={{ overflowX: 'auto' }} ref={chartContainerRef}>
+    <div style={{ overflowX: "auto" }} ref={chartContainerRef}>
       <ResponsiveContainer width={600} height={300}>
         <LineChart
           data={data}
@@ -87,7 +105,7 @@ const TransactionTimelineChart = ({data, setSelectedColumn}) => {
             dataKey="period"
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 10, fill: '#777' }}
+            tick={{ fontSize: 10, fill: "#777" }}
             padding={{ left: 10, right: 10 }}
           />
           {/* Remove YAxis */}
