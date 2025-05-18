@@ -3,7 +3,7 @@ import { Pie, PieChart, Cell, ResponsiveContainer } from 'recharts';
 
 const CategoryChart = (props) => {
   const categorySummary = props.categorySummary;
-  console.log(categorySummary);
+  // console.log(categorySummary);
   const data = categorySummary.map(category => {
     return {
       name: category.categoryName,
