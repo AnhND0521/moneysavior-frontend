@@ -4,9 +4,40 @@ import environment from "../environments/environment";
 export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
-  const [userUuid, setUserUuid] = useState(null);
-  const [email, setEmail] = useState("nguyenducanh2105@gmail.com");
-  const [fullName, setFullName] = useState("");
+  const [userUuid, setUserUuid] = useState(
+    localStorage.getItem("userUuid") || null
+  );
+  const [email, setEmail] = useState(
+    localStorage.getItem("email") || "nguyenducanh2105@gmail.com"
+  );
+  const [fullName, setFullName] = useState(
+    localStorage.getItem("fullName") || ""
+  );
+
+  const saveUserUuid = (uuid) => {
+    setUserUuid(uuid);
+    if (uuid === null) {
+      localStorage.removeItem("userUuid");
+    } else {
+      localStorage.setItem("userUuid", uuid);
+    }
+  };
+  const saveEmail = (email) => {
+    setEmail(email);
+    if (email === null) {
+      localStorage.removeItem("email");
+    } else {
+      localStorage.setItem("email", email);
+    }
+  }
+  const saveFullName = (name) => {
+    setFullName(name);
+    if (name === null) {
+      localStorage.removeItem("fullName");
+    } else {
+      localStorage.setItem("fullName", name);
+    }
+  };
 
   const init = async () => {
     if (userUuid === null) {
@@ -37,7 +68,16 @@ export const LoginProvider = ({ children }) => {
   }, []);
 
   return (
-    <LoginContext.Provider value={{ userUuid, setUserUuid, email, setEmail, fullName, setFullName }}>
+    <LoginContext.Provider
+      value={{
+        userUuid,
+        setUserUuid: saveUserUuid,
+        email,
+        setEmail: saveEmail,
+        fullName,
+        setFullName: saveFullName,
+      }}
+    >
       {children}
     </LoginContext.Provider>
   );

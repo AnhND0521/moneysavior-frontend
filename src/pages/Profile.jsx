@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../contexts/LoginContext";
 import environment from "../environments/environment";
+import CustomCombobox from "../components/CustomCombobox";
 
 const LOGIN = 0;
 const SIGNUP = 1;
@@ -18,6 +19,25 @@ const Profile = () => {
   const [action, setAction] = useState(userUuid ? PROFILE : LOGIN);
   const [errors, setErrors] = useState({}); // State để lưu trữ lỗi
   const navigate = useNavigate();
+
+  const [sampleEmails, setSampleEmails] = useState([]);
+
+  useEffect(() => {
+    setAction(userUuid ? PROFILE : LOGIN);
+    setEmailInput(email);
+    setFullNameInput(fullName);
+  }, [userUuid]);
+
+  useEffect(() => {
+    const fetchSampleEmails = async () => {
+      const response = await fetch(`${environment.serverURL}/api/v1/accounts`);
+      if (response.ok) {
+        const data = await response.json();
+        setSampleEmails(data);
+      }
+    };
+    fetchSampleEmails();
+  }, []);
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -104,8 +124,8 @@ const Profile = () => {
 
   const handleLogout = () => {
     setUserUuid(null);
-    setEmail("");
-    setFullName("");
+    setEmail(null);
+    setFullName(null);
     setEmailInput("");
     setFullNameInput("");
     setAction(LOGIN);
@@ -138,6 +158,10 @@ const Profile = () => {
     }
   };
 
+  const handleEmailInputChange = (newEmail) => {
+    setEmailInput(newEmail);
+  };
+
   return (
     <form
       className="flex flex-col items-center justify-center w-screen h-full p-8 bg-gray-100"
@@ -148,22 +172,34 @@ const Profile = () => {
           {pageTitles[action]}
         </h2>
         <div>
-          <label
-            htmlFor="email"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            Email
-          </label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
-            placeholder="Nhập địa chỉ email của bạn"
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
-            disabled={action === PROFILE}
-          />
+          {action === LOGIN ? (
+            <CustomCombobox
+              label="Email"
+              options={sampleEmails}
+              placeholder={"Nhập địa chỉ email của bạn"}
+              value={emailInput}
+              onChange={handleEmailInputChange}
+            />
+          ) : (
+            <>
+              <label
+                htmlFor="email"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Email
+              </label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
+                placeholder="Nhập địa chỉ email của bạn"
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+                disabled={action === PROFILE}
+              />
+            </>
+          )}
           {errors.email && (
             <p className="text-red-500 text-xs italic">{errors.email}</p>
           )}
