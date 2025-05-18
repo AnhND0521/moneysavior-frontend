@@ -8,32 +8,9 @@ import {
   Dot,
 } from 'recharts';
 
-const data = [
-  { date: '01/05', value: 10000 },
-  { date: '02/05', value: 12000 },
-  { date: '03/05', value: 15000 },
-  { date: '04/05', value: 18000 },
-  { date: '05/05', value: 14000 },
-  { date: '06/05', value: 16000 },
-  { date: '07/05', value: 13000 },
-  { date: '08/05', value: 17000 },
-  { date: '09/05', value: 19000 },
-  { date: '10/05', value: 15500 },
-  { date: '11/05', value: 12500 },
-  { date: '12/05', value: 14500 },
-  { date: '13/05', value: 16500 },
-  { date: '14/05', value: 18500 },
-  { date: '15/05', value: 15000 },
-  { date: '16/05', value: 17000 },
-  { date: '17/05', value: 19500 },
-  { date: '18/05', value: 16000 },
-  { date: '19/05', value: 13500 },
-  { date: '20/05', value: 15500 },
-];
-
 const CustomDot = (props) => {
   const { cx, cy, value, payload, activePoint, height } = props;
-  const isHighlighted = payload && activePoint && payload.date === activePoint.date;
+  const isHighlighted = payload && activePoint && payload.period === activePoint.period;
   const isTopHalf = cy < height / 2;
   const textY = isTopHalf ? cy + 25 : cy - 35;
   const arrowPoints = isTopHalf ? `0,0 5,5 -5,5` : `0,0 5,-5 -5,-5`;
@@ -61,7 +38,7 @@ const CustomDot = (props) => {
   return <circle cx={cx} cy={cy} r={4} fill="#38ada9" />;
 };
 
-const TransactionTimelineChart = () => {
+const TransactionTimelineChart = ({data, setSelectedColumn}) => {
   const [activePoint, setActivePoint] = useState(null);
   const chartContainerRef = useRef(null);
 
@@ -81,6 +58,7 @@ const TransactionTimelineChart = () => {
 
   const handleClick = (point) => {
     setActivePoint(point);
+    setSelectedColumn(point);
   };
 
   return (
@@ -106,7 +84,7 @@ const TransactionTimelineChart = () => {
           }}
         >
           <XAxis
-            dataKey="date"
+            dataKey="period"
             axisLine={false}
             tickLine={false}
             tick={{ fontSize: 10, fill: '#777' }}
@@ -115,7 +93,7 @@ const TransactionTimelineChart = () => {
           {/* Remove YAxis */}
           <Line
             type="monotone"
-            dataKey="value"
+            dataKey="amount"
             stroke="#38ada9"
             strokeWidth={2}
             dot={(props) => <CustomDot {...props} activePoint={activePoint} />}

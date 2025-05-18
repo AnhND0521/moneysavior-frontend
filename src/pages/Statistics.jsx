@@ -7,6 +7,7 @@ import environment from "../environments/environment";
 import { LoginContext } from "../contexts/LoginContext";
 import DateRangeTabs from "../components/DateRangeTabs";
 import TransactionTimelineChart from "../components/TransactionTimelineChart";
+import NoTransactionsText from "../components/NoTransactionsText";
 
 const Statistics = () => {
   const [topTransactions, setTopTransactions] = useState([]);
@@ -14,45 +15,51 @@ const Statistics = () => {
 
   const [dateRangeType, setDateRangeType] = useState(0);
   const [transactionSummaryData, setTransactionSummaryData] = useState([]);
+  const [selectedColumn, setSelectedColumn] = useState(null);
+  const [transactionType, setTransactionType] = useState("EXPENSE");
+  const [sort, setSort] = useState("DESC");
+
+  const toggleSort = () => {
+    setSort((prevSort) => (prevSort === "ASC" ? "DESC" : "ASC"));
+  };
 
   const summaryTypes = ["DAILY", "WEEKLY", "MONTHLY", "YEARLY"];
 
   const fetchTransactionSummary = async () => {
     if (!userUuid) return;
     const response = await fetch(
-      `${environment.serverURL}/api/v1/reports/transaction-summary-by-period?userUuid=${userUuid}&transactionType=EXPENSE&summaryType=${summaryTypes[dateRangeType]}`
+      `${environment.serverURL}/api/v1/reports/transaction-summary-by-period?userUuid=${userUuid}&transactionType=${transactionType}&summaryType=${summaryTypes[dateRangeType]}`
     );
 
     if (response.ok) {
       const transactionSummary = await response.json();
       console.log(transactionSummary);
       setTransactionSummaryData(transactionSummary.data);
+      setSelectedColumn(
+        transactionSummary.data[transactionSummary.data.length - 1]
+      );
     }
   };
 
   useEffect(() => {
     fetchTransactionSummary();
-  }, [userUuid, dateRangeType]);
+  }, [userUuid, transactionType, dateRangeType]);
 
-  // useEffect(() => {
-  //   fetchExpenses();
-  // }, [dateRangeType]);
+  const fetchTopTransactions = async () => {
+    if (!userUuid || !selectedColumn) return;
+    const response = await fetch(
+      `${environment.serverURL}/api/v1/reports/top-transactions?userUuid=${userUuid}&transactionType=${transactionType}&startDate=${selectedColumn.startDate}&endDate=${selectedColumn.endDate}&sortDirection=${sort}`
+    );
 
-  // const fetchExpenses = async () => {
-  // const { month, year } = convertValueToDateOption(selectedOption);
-  // const response = await fetch(
-  //   `${environment.serverURL}/api/v1/transactions?userUuid=${userUuid}&type=EXPENSE&month=${month}&year=${year}`
-  // );
+    if (response.ok) {
+      const transactions = (await response.json()).transactions;
+      setTopTransactions(transactions);
+    }
+  };
 
-  // if (response.ok) {
-  //   const expenses = await response.json();
-  //   setTopExpenses(expenses.sort((a, b) => b.amount - a.amount));
-  // }
-  // };
-
-  // const transactionHistory = topExpenses.map((transaction) => (
-  //   <Transaction key={transaction.uuid} transaction={transaction} />
-  // ));
+  useEffect(() => {
+    fetchTopTransactions();
+  }, [userUuid, selectedColumn, transactionType, sort]);
 
   return (
     <div className="relative w-screen h-screen bg-white">
@@ -69,12 +76,46 @@ const Statistics = () => {
           dateRange={dateRangeType}
           setDateRange={setDateRangeType}
         />
-        <TransactionTimelineChart />
-        <div className="mb-4 flex items-center justify-between">
-          <h4 className="w-full font-bold text-lg">Các khoản chi nhiều nhất</h4>
-          <BiSort size="1.5rem" />
+        <select
+          name="daterange"
+          id="daterange"
+          className="w-full h-10 mb-4 rounded-md border border-gray-text text-center text-sm text-gray-text"
+          onChange={(e) => {
+            setTransactionType(e.target.value);
+          }}
+          value={transactionType}
+        >
+          <option value="EXPENSE">Chi tiêu</option>
+          <option value="INCOME">Thu nhập</option>
+        </select>
+        <TransactionTimelineChart
+          data={transactionSummaryData}
+          setSelectedColumn={setSelectedColumn}
+        />
+        <div className="mt-4 mb-4 flex items-center justify-between">
+          <h4 className="w-full font-bold text-lg">
+            Các khoản {transactionType === "EXPENSE" ? "chi  " : "thu "}
+            {sort === "DESC" ? "nhiều" : "ít"} nhất
+            {selectedColumn ? ` (${selectedColumn.period})` : ""}
+          </h4>
+          <BiSort
+            size="1.5rem"
+            className="cursor-pointer"
+            onClick={toggleSort}
+          />
         </div>
-        {/* <div className="w-full flex flex-col gap-2">{transactionHistory}</div> */}
+        <div
+          className="w-full flex flex-col gap-2 overflow-y-scroll pb-4"
+          style={{ maxHeight: "30vh" }}
+        >
+          {topTransactions.length > 0 ? (
+            topTransactions.map((transaction) => (
+              <Transaction key={transaction.uuid} transaction={transaction} />
+            ))
+          ) : (
+            <NoTransactionsText />
+          )}
+        </div>
       </section>
     </div>
   );
