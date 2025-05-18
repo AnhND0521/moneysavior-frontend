@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { BiChevronLeft, BiSolidMicrophone, BiSolidSend } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { BiChevronLeft, BiDotsVertical, BiSolidMicrophone, BiSolidSend } from "react-icons/bi";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "../contexts/LoginContext";
 import Message from "../components/Message";
 import TransactionMessage from "../components/TransactionMessage";
@@ -9,10 +9,13 @@ import { ClipLoader } from "react-spinners";
 
 const Chatbot = () => {
   const { userUuid } = useContext(LoginContext);
+  const navigate = useNavigate(); // Khởi tạo useNavigate
 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false); // State để theo dõi trạng thái gửi tin
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false); // State quản lý hiển thị menu
+  const optionsRef = useRef(null); // Ref cho menu tùy chọn
 
   const fetchMessages = async () => {
     const response = await fetch(
@@ -149,6 +152,28 @@ const Chatbot = () => {
     return <Message key={index} message={message} />;
   });
 
+  const toggleOptions = () => {
+    setIsOptionsOpen(!isOptionsOpen);
+  };
+
+  const handleAddManual = () => {
+    navigate("/transactions/add"); // Điều hướng đến route thêm giao dịch
+    setIsOptionsOpen(false); // Đóng menu sau khi chọn
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+        setIsOptionsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [optionsRef]);
+
   return (
     <div className="relative w-screen h-screen bg-white">
       <div className="absolute w-full h-1/3 mb-6">
@@ -160,6 +185,21 @@ const Chatbot = () => {
         </Link>
         <div className="w-full h-full flex items-center justify-center">
           <h3 className="font-bold text-lg">Thêm khoản thu/chi</h3>
+        </div>
+        <div className="absolute right-4" ref={optionsRef}>
+          <button onClick={toggleOptions}>
+            <BiDotsVertical size="1.8rem" />
+          </button>
+          {isOptionsOpen && (
+            <div className="absolute top-full right-0 mt-2 w-40 bg-white rounded-md shadow-md z-100">
+              <button
+                onClick={handleAddManual}
+                className="block w-full text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
+              >
+                Thêm thủ công
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <section className="absolute top-1/10 w-full h-9/10 p-6 flex flex-col justify-between gap-4 rounded-2xl bg-white z-50">
@@ -198,7 +238,7 @@ const Chatbot = () => {
             <button type="button" disabled={isSending}>
               <BiSolidMicrophone size="1.8rem" />
             </button>
-            <button type="submit" disabled={isSending || input.trim() === ''}>
+            <button type="submit" disabled={isSending || input.trim() === ""}>
               <BiSolidSend size="1.8rem" />
             </button>
           </div>
