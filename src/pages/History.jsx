@@ -50,6 +50,10 @@ const History = () => {
     fetchTransactions();
   }, [filter]);
 
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
   const transactionHistory = transactions.map((transaction) => (
     <Transaction key={transaction.uuid} transaction={transaction} />
   ));

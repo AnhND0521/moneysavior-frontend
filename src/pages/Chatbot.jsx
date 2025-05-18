@@ -40,6 +40,7 @@ const Chatbot = () => {
 
           const transactionMessage = {
             messageType: "transaction",
+            uuid: message.transaction.uuid,
             type: message.transaction.type,
             category: message.transaction.category,
             description: message.transaction.description,
@@ -108,6 +109,7 @@ const Chatbot = () => {
         };
         const transactionMessage = {
           messageType: "transaction",
+          uuid: transaction.uuid,
           type: transaction.type,
           category: transaction.category,
           description: transaction.description,
