@@ -44,7 +44,6 @@ const Home = () => {
 
     if (response.ok) {
       const categorySummaryData = (await response.json()).data;
-      console.log(categorySummaryData);
       setCategorySummary(categorySummaryData);
     }
   };

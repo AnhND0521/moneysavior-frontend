@@ -3,9 +3,24 @@ import { BiChevronLeft, BiSort } from 'react-icons/bi'
 import DateRangeTabs from '../components/DateRangeTabs'
 import Transaction from '../components/Transaction'
 import { Link } from 'react-router-dom';
+import getDateRange from '../utils/getDateRange';
 
 const Statistics = () => {
   const [dateRange, setDateRange] = useState(0);
+  const [topExpenses, setTopExpenses] = useState([]);
+
+  const fetchExpenses = async () => {
+    const { start, end } = getDateRange(dateRange);
+    const response = await fetch(
+      `${environment.serverURL}/api/v1/reports/transactions?userUuid=${userUuid}&startDate=${start}&endDate=${end}`
+    );
+
+    if (response.ok) {
+      const expenses = (await response.json()).data;
+      console.log(expenses);
+      setTopExpenses(expenses);
+    }
+  };
 
   return (
     <div className='relative w-screen h-screen bg-white'>

@@ -1,10 +1,13 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../contexts/LoginContext";
 import environment from "../environments/environment";
 
 const Profile = () => {
   const { setUserUuid, email, setEmail } = useContext(LoginContext);
   const [ emailInput, setEmailInput ] = useState(email);
+
+  const navigate = useNavigate();
 
   const login = async (data) => {
     console.log("Login data: ", data);
@@ -23,6 +26,8 @@ const Profile = () => {
       const responseData = await response.json();
       setUserUuid(responseData.userUuid);
       setEmail(emailInput);
+
+      navigate('/');
     }
   };
 
