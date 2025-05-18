@@ -8,6 +8,8 @@ import Chatbot from "./pages/Chatbot";
 import Profile from "./pages/Profile";
 import TransactionForm from "./pages/TransactionForm";
 import { LoginProvider } from "./contexts/LoginContext";
+import BankAccountForm from "./pages/BankAccountForm";
+import BankQRCode from "./pages/BankQRCode";
 
 function App() {
   return (
@@ -25,6 +27,9 @@ function App() {
               path="transactions/edit/:uuid"
               element={<TransactionForm />}
             />
+            <Route path="bank" element={<BankAccountForm />} />
+            <Route path="bank/qr" element={<BankQRCode />} />
+            <Route path="*" element={<Home />} />
           </Routes>
           <Navbar />
         </BrowserRouter>

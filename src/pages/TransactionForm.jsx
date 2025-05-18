@@ -191,19 +191,21 @@ const TransactionForm = () => {
   }
 
   return (
-    <form
-      className="flex flex-col items-center w-screen h-screen px-8 pb-30 bg-gray-100"
-      onSubmit={handleSubmit}
-    >
+    <div className="flex flex-col items-center w-screen h-screen px-8 pb-30 bg-gray-100">
       <div className="relative w-full h-1/10 flex items-center text-black">
-        <Link className="absolute left-4" onClick={() => navigate(-1)}>
+        <Link className="" onClick={() => navigate(-1)}>
           <BiChevronLeft size="1.8rem" />
         </Link>
+        <div className="w-full h-full flex items-center justify-center">
+          <h2 className="text-xl font-bold text-gray-800">
+            {isEditMode ? "Chỉnh sửa giao dịch" : "Thêm giao dịch"}
+          </h2>
+        </div>
       </div>
-      <div className="w-full max-w-md bg-white rounded-xl shadow-md p-8 space-y-6 overflow-y-auto">
-        <h2 className="text-xl font-bold text-gray-800 text-center">
-          {isEditMode ? "Chỉnh sửa giao dịch" : "Thêm giao dịch"}
-        </h2>
+      <form
+        className="w-full max-w-md bg-white rounded-xl shadow-md p-8 space-y-6 overflow-y-auto"
+        onSubmit={handleSubmit}
+      >
         <div>
           <label
             htmlFor="type"
@@ -330,8 +332,8 @@ const TransactionForm = () => {
             </button>
           )}
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

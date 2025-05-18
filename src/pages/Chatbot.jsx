@@ -157,9 +157,14 @@ const Chatbot = () => {
   };
 
   const handleAddManual = () => {
-    navigate("/transactions/add"); // Điều hướng đến route thêm giao dịch
-    setIsOptionsOpen(false); // Đóng menu sau khi chọn
+    navigate("/transactions/add");
+    setIsOptionsOpen(false);
   };
+
+  const handleLinkBank = () => {
+    navigate("/bank");
+    setIsOptionsOpen(false);
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -180,7 +185,7 @@ const Chatbot = () => {
         <div className="w-full h-2/3 bg-primary px-4"></div>
       </div>
       <div className="relative w-full h-1/10 flex items-center text-white">
-        <Link to="/" className="absolute left-4">
+        <Link className="absolute left-4" onClick={() => navigate(-1)}>
           <BiChevronLeft size="1.8rem" />
         </Link>
         <div className="w-full h-full flex items-center justify-center">
@@ -194,9 +199,15 @@ const Chatbot = () => {
             <div className="absolute top-full right-0 mt-2 w-40 bg-white rounded-md shadow-md z-100">
               <button
                 onClick={handleAddManual}
-                className="block w-full text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
               >
                 Thêm thủ công
+              </button>
+              <button
+                onClick={handleLinkBank}
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
+              >
+                Liên kết ngân hàng
               </button>
             </div>
           )}
