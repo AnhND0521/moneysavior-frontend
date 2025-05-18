@@ -3,8 +3,8 @@ import { BiChevronUp, BiDownArrowAlt, BiUpArrowAlt } from "react-icons/bi";
 import DateRangeTabs from "../components/DateRangeTabs";
 import CategoryChart from "../components/CategoryChart";
 import { LoginContext } from "../contexts/LoginContext";
-import getDateRange from "../utils/getDateRange";
-import formatDate from "../utils/formatDate";
+import getDateOptions from "../utils/getDateOptions";
+import { formatDateISO } from "../utils/dateFormatter";
 import environment from "../environments/environment";
 import NoTransactionsText from "../components/NoTransactionsText";
 
@@ -13,8 +13,8 @@ const Home = () => {
   const now = new Date();
   const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-  const startDate = formatDate(firstDayOfMonth);
-  const endDate = formatDate(lastDayOfMonth);
+  const startDate = formatDateISO(firstDayOfMonth);
+  const endDate = formatDateISO(lastDayOfMonth);
 
   const [overview, setOverview] = useState({
     balance: 0,
@@ -23,7 +23,20 @@ const Home = () => {
   });
   const [categorySummary, setCategorySummary] = useState([]);
 
-  const [dateRange, setDateRange] = useState(0);
+  const convertDateOptionToValue = (option) => `${option.start}|${option.end}`;
+  const convertValueToDateOption = (value) => {
+    const [start, end] = value.split("|");
+    return {
+      start: start,
+      end: end,
+    };
+  };
+
+  const [dateRange, setDateRange] = useState(2);
+  const [dateOptions, setDateOptions] = useState(getDateOptions(dateRange));
+  const [selectedOption, setSelectedOption] = useState(
+    `${dateOptions[0].start}|${dateOptions[0].end}`
+  );
 
   const fetchOverview = async () => {
     const response = await fetch(
@@ -37,7 +50,8 @@ const Home = () => {
   };
 
   const fetchCategorySummary = async () => {
-    const { start, end } = getDateRange(dateRange);
+    const { start, end } = convertValueToDateOption(selectedOption);
+    console.log(start, end);
     const response = await fetch(
       `${environment.serverURL}/api/v1/reports/category-summary?userUuid=${userUuid}&startDate=${start}&endDate=${end}`
     );
@@ -48,13 +62,20 @@ const Home = () => {
     }
   };
 
+  const handleDateRangeChange = (option) => {
+    setDateRange(option);
+    const newDateOptions = getDateOptions(option);
+    setDateOptions(newDateOptions);
+    setSelectedOption(convertDateOptionToValue(newDateOptions[0]));
+  };
+
   useEffect(() => {
     fetchOverview();
   }, [userUuid]);
 
   useEffect(() => {
     fetchCategorySummary();
-  }, [userUuid, dateRange]);
+  }, [userUuid, selectedOption]);
 
   return (
     <>
@@ -105,16 +126,28 @@ const Home = () => {
           </div>
         </div>
         <div className="px-6">
-          <DateRangeTabs dateRange={dateRange} setDateRange={setDateRange} />
+          <DateRangeTabs
+            dateRange={dateRange}
+            setDateRange={handleDateRangeChange}
+          />
           <select
             name="daterange"
             id="daterange"
             className="w-full h-10 mb-4 rounded-md border border-gray-text text-center text-sm text-gray-text"
+            onChange={(e) => {
+              setSelectedOption(e.target.value);
+            }}
+            value={selectedOption}
           >
-            <option value="">12/05/2025</option>
-            <option value="">12/05/2025 - 18/05/2025</option>
-            <option value="">05/2025</option>
-            <option value="">2025</option>
+            {dateOptions.map((option) => (
+              <option
+                key={option.label}
+                value={`${option.start}|${option.end}`}
+                className="text-xs"
+              >
+                {option.label}
+              </option>
+            ))}
           </select>
         </div>
         <div className="w-full h-1/3">
