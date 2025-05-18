@@ -1,0 +1,19 @@
+/* Make body take full height and center content */
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* or center for vertical centering */
+  background: #f0f2f5; /* Optional: subtle background */
+}
+
+/* Restrict root/app width and remove default margin */
+#root, .App {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  margin: 0; /* Remove auto margin */
+}

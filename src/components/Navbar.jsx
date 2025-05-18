@@ -8,7 +8,7 @@ const Navbar = () => {
 
   return (
     pathname !== '/chatbot' &&
-    <div className='fixed bottom-0 w-full h-1/10 px-2 grid grid-cols-5 bg-white shadow-[0_0px_10px_rgba(0,0,0,0.25)]'>
+    <div className='fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[430px] h-1/10 px-2 grid grid-cols-5 bg-white shadow-[0_0px_10px_rgba(0,0,0,0.25)]'>
       <Link
         className={`w-full h-full flex justify-center items-center rounded-md 
           ${activeTab == 0 ? 'text-primary' : 'text-gray-text'}`}

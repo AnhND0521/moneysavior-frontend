@@ -180,7 +180,7 @@ const Chatbot = () => {
   }, [optionsRef]);
 
   return (
-    <div className="relative w-screen h-screen bg-white">
+    <div className="relative w-full h-screen bg-white">
       <div className="absolute w-full h-1/3 mb-6">
         <div className="w-full h-2/3 bg-primary px-4"></div>
       </div>

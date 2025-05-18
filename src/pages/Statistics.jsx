@@ -61,7 +61,7 @@ const Statistics = () => {
   }, [userUuid, selectedColumn, transactionType, sort]);
 
   return (
-    <div className="relative w-screen h-screen bg-white">
+    <div className="relative w-full h-screen bg-white">
       <div className="relative w-full h-1/10 flex items-center text-black">
         <Link to="/" className="absolute left-4">
           <BiChevronLeft size="1.8rem" />

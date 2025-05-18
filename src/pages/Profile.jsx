@@ -164,7 +164,7 @@ const Profile = () => {
 
   return (
     <form
-      className="flex flex-col items-center justify-center w-screen h-full p-8 bg-gray-100"
+      className="flex flex-col items-center justify-center w-full h-screen p-8 bg-gray-100"
       onSubmit={submit}
     >
       <div className="w-full max-w-md bg-white rounded-xl shadow-md p-8 space-y-6">

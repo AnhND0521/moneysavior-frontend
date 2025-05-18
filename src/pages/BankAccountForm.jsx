@@ -6,7 +6,7 @@ const BankAccountForm = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center w-screen h-screen px-8 pb-30 bg-gray-100">
+    <div className="flex flex-col items-center w-full h-screen px-8 pb-30 bg-gray-100">
       <div className="relative w-full h-1/10 flex items-center text-black">
         <Link className="" onClick={() => navigate(-1)}>
           <BiChevronLeft size="1.8rem" />
