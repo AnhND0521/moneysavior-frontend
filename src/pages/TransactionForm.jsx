@@ -141,6 +141,28 @@ const TransactionForm = () => {
     }
   };
 
+  const deleteTransaction = async () => {
+    try {
+      const response = await fetch(
+        `${environment.serverURL}/api/v1/transactions/${uuid}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("Giao dịch đã được xóa");
+        navigate(-1);
+      } else {
+        console.error("Lỗi khi xóa giao dịch");
+      }
+    } catch (error) {
+      console.error("Lỗi mạng:", error);
+    }
+  };
+
   const validateForm = () => {
     const errors = {};
     if (!transaction.type) {
@@ -302,6 +324,7 @@ const TransactionForm = () => {
             <button
               type="button"
               className="w-full bg-red-700 text-white font-bold py-3 rounded-lg hover:bg-primary-dark focus:outline-none focus:shadow-outline"
+              onClick={deleteTransaction}
             >
               Xóa
             </button>
