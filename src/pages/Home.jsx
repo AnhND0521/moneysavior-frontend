@@ -7,11 +7,10 @@ import getDateOptions from "../utils/getDateOptions";
 import { formatDateISO } from "../utils/dateFormatter";
 import environment from "../environments/environment";
 import NoTransactionsText from "../components/NoTransactionsText";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { userUuid, fullName } = useContext(LoginContext);
-  const navigate = useNavigate();
   const now = new Date();
   const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
@@ -72,10 +71,6 @@ const Home = () => {
     setDateOptions(newDateOptions);
     setSelectedOption(convertDateOptionToValue(newDateOptions[0]));
   };
-
-  useEffect(() => {
-    if (!userUuid) navigate("/profile");
-  }, [userUuid]);
 
   useEffect(() => {
     fetchOverview();
