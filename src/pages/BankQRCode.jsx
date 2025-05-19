@@ -26,7 +26,7 @@ const BankQRCode = () => {
         </div>
         <div>
           <img
-            src="/src/assets/qr.png"
+            src="/qr.png"
             alt="QR Code"
             className="w-full mx-auto mb-4"
           />
