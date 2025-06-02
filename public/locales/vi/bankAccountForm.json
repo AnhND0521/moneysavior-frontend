@@ -1,0 +1,12 @@
+{
+    "linkAccount": "Liên kết tài khoản ngân hàng",
+    "message1": "Vì lý do bảo mật, trong bản demo này, chúng tôi sẽ liên kết duy nhất tài khoản mẫu dưới đây với ứng dụng, và bạn sẽ không thể thay đổi sang tài khoản của bạn.",
+    "message2": "Tuy nhiên, bạn có thể thử chuyển khoản vào tài khoản dưới để quan sát giao dịch thu nhập được đồng bộ vào ứng dụng. Để tiện lợi, bạn có thể lấy mã QR chuyển khoản ",
+    "message3": ".",
+    "here": "tại đây",
+    "bank": "Ngân hàng",
+    "accountNumber": "Số tài khoản",
+    "confirmLink": "Xác nhận liên kết",
+    "linkSuccessfully": "Đã liên kết tài khoản ngân hàng thành công!",
+    "cancel": "Huỷ"
+}
