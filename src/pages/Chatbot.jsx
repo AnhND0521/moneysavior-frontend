@@ -6,6 +6,7 @@ import Message from "../components/Message";
 import TransactionMessage from "../components/TransactionMessage";
 import environment from "../environments/environment";
 import { ClipLoader } from "react-spinners";
+import { useTranslation } from "react-i18next";
 
 const Chatbot = () => {
   const { userUuid } = useContext(LoginContext);
@@ -179,6 +180,8 @@ const Chatbot = () => {
     };
   }, [optionsRef]);
 
+  const { t } = useTranslation("chatbot");
+
   return (
     <div className="relative w-full h-screen bg-white">
       <div className="absolute w-full h-1/3 mb-6">
@@ -189,7 +192,7 @@ const Chatbot = () => {
           <BiChevronLeft size="1.8rem" />
         </Link>
         <div className="w-full h-full flex items-center justify-center">
-          <h3 className="font-bold text-lg">Thêm khoản thu/chi</h3>
+          <h3 className="font-bold text-lg">{t('addTransaction')}</h3>
         </div>
         <div className="absolute right-4" ref={optionsRef}>
           <button onClick={toggleOptions}>
@@ -201,13 +204,13 @@ const Chatbot = () => {
                 onClick={handleAddManual}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
               >
-                Thêm thủ công
+                {t('addManually')}
               </button>
               <button
                 onClick={handleLinkBank}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
               >
-                Liên kết ngân hàng
+                {t('linkAccount')}
               </button>
             </div>
           )}
@@ -217,7 +220,7 @@ const Chatbot = () => {
         <div className="w-full h-9/10 flex flex-col">
           <div className="w-full mb-4 flex flex-col items-center gap-2">
             <p className="text-gray-text text-sm">
-              Ghi lại khoản thu chi của bạn tại đây!
+              {t('inputHere')}
             </p>
             <div className="p-3 bg-primary rounded-full ">
               <img src="/chatbot.svg" alt="" />
@@ -239,7 +242,7 @@ const Chatbot = () => {
             type="text"
             name="message"
             id="message"
-            placeholder="Nhập khoản thu/chi..."
+            placeholder={t('inputTransaction')}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="w-full h-full px-4 bg-gray-chat rounded-lg"

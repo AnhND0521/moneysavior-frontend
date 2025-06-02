@@ -4,5 +4,8 @@
     "month": "Tháng",
     "year": "Năm",
     "noTransactions": "Không có giao dịch nào.",
-    "startNow": "Bắt đầu ghi chép chi tiêu ngay!"
+    "startNow": "Bắt đầu ghi chép chi tiêu ngay!",
+    "recorded": "Đã ghi nhận",
+    "expense": "Chi tiêu",
+    "income": "Thu nhập"
 }
