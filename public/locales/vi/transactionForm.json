@@ -1,0 +1,24 @@
+{
+    "error": {
+        "typeRequired": "Loại giao dịch không được để trống",
+        "categoryRequired": "Danh mục không được để trống",
+        "descriptionRequired": "Mô tả không được để trống",
+        "amountMustBePositive": "Số tiền phải lớn hơn 0",
+        "dateRequired": "Ngày không được để trống"
+    },
+    "editTransaction": "Chỉnh sửa giao dịch",
+    "addTransaction": "Thêm giao dịch",
+    "transactionType": "Loại giao dịch",
+    "selectType": "Chọn loại giao dịch",
+    "expense": "Chi tiêu",
+    "income": "Thu nhập",
+    "category": "Danh mục",
+    "selectCategory": "Chọn danh mục",
+    "description": "Mô tả",
+    "amount": "Số tiền",
+    "date": "Ngày",
+    "saveChanges": "Lưu thay đổi",
+    "delete": "Xoá",
+    "inputDescription": "Nhập mô tả giao dịch",
+    "inputAmount": "Nhập số tiền"
+}

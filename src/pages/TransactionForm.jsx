@@ -3,6 +3,7 @@ import { BiChevronLeft } from "react-icons/bi";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import environment from "../environments/environment";
 import { LoginContext } from "../contexts/LoginContext";
+import { useTranslation } from "react-i18next";
 
 const TransactionForm = () => {
   const { uuid } = useParams();
@@ -18,6 +19,7 @@ const TransactionForm = () => {
   const [categories, setCategories] = useState([]);
   const [errors, setErrors] = useState({}); // State để theo dõi lỗi
   const { userUuid } = useContext(LoginContext);
+  const { t } = useTranslation("transactionForm");
 
   useEffect(() => {
     if (uuid) {
@@ -166,19 +168,19 @@ const TransactionForm = () => {
   const validateForm = () => {
     const errors = {};
     if (!transaction.type) {
-      errors.type = "Loại giao dịch không được để trống";
+      errors.type = t("error.typeRequired");
     }
     if (transaction.type === "EXPENSE" && !transaction.category) {
-      errors.category = "Danh mục không được để trống";
+      errors.category = t("error.categoryRequired");
     }
     if (!transaction.description) {
-      errors.description = "Mô tả không được để trống";
+      errors.description = t("error.descriptionRequired");
     }
     if (transaction.amount === null || transaction.amount <= 0) {
-      errors.amount = "Số tiền phải lớn hơn 0";
+      errors.amount = t("error.amountMustBePositive");
     }
     if (!transaction.date) {
-      errors.date = "Ngày không được để trống";
+      errors.date = t("error.dateRequired");
     }
     return errors;
   };
@@ -198,7 +200,7 @@ const TransactionForm = () => {
         </Link>
         <div className="w-full h-full flex items-center justify-center">
           <h2 className="text-xl font-bold text-gray-800">
-            {isEditMode ? "Chỉnh sửa giao dịch" : "Thêm giao dịch"}
+            {t(isEditMode ? "editTransaction" : "addTransaction")}
           </h2>
         </div>
       </div>
@@ -211,7 +213,7 @@ const TransactionForm = () => {
             htmlFor="type"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Loại giao dịch
+            {t("transactionType")}
           </label>
           <select
             id="type"
@@ -220,9 +222,9 @@ const TransactionForm = () => {
             value={transaction.type}
             onChange={handleChange}
           >
-            <option value="">Chọn loại giao dịch</option>
-            <option value="EXPENSE">Chi tiêu</option>
-            <option value="INCOME">Thu nhập</option>
+            <option value="">{t("selectType")}</option>
+            <option value="EXPENSE">{t("expense")}</option>
+            <option value="INCOME">{t("income")}</option>
           </select>
           {errors.type && (
             <p className="text-red-500 text-xs italic">{errors.type}</p>
@@ -234,7 +236,7 @@ const TransactionForm = () => {
               htmlFor="category"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Danh mục
+              {t("category")}
             </label>
             <select
               id="category"
@@ -244,7 +246,7 @@ const TransactionForm = () => {
               onChange={handleChange}
               disabled={transaction.type === "INCOME"}
             >
-              <option value="">Chọn danh mục</option>
+              <option value="">{t("selectCategory")}</option>
               {categories.map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
@@ -261,14 +263,14 @@ const TransactionForm = () => {
             htmlFor="description"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Mô tả
+            {t("description")}
           </label>
           <input
             type="text"
             name="description"
             id="description"
             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
-            placeholder="Nhập mô tả giao dịch"
+            placeholder={t("inputDescription")}
             value={transaction.description}
             onChange={handleChange}
           />
@@ -281,14 +283,14 @@ const TransactionForm = () => {
             htmlFor="amount"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Số tiền
+            {t("amount")}
           </label>
           <input
             type="number"
             name="amount"
             id="amount"
             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
-            placeholder="Nhập số tiền"
+            placeholder={t("inputAmount")}
             value={transaction.amount}
             onChange={handleChange}
           />
@@ -301,7 +303,7 @@ const TransactionForm = () => {
             htmlFor="date"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Ngày
+            {t("date")}
           </label>
           <input
             type="date"
@@ -320,7 +322,7 @@ const TransactionForm = () => {
             type="submit"
             className="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary-dark focus:outline-none focus:shadow-outline"
           >
-            {isEditMode ? "Lưu thay đổi" : "Thêm giao dịch"}
+            {t(isEditMode ? "saveChanges" : "addTransaction")}
           </button>
           {isEditMode && (
             <button
@@ -328,7 +330,7 @@ const TransactionForm = () => {
               className="w-full bg-red-700 text-white font-bold py-3 rounded-lg hover:bg-primary-dark focus:outline-none focus:shadow-outline"
               onClick={deleteTransaction}
             >
-              Xóa
+              {t("delete")}
             </button>
           )}
         </div>
