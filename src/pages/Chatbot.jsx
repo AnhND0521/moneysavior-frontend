@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import {
   BiChevronLeft,
   BiDotsVertical,
@@ -22,6 +28,45 @@ const Chatbot = () => {
   const [isSending, setIsSending] = useState(false); // State để theo dõi trạng thái gửi tin
   const [isOptionsOpen, setIsOptionsOpen] = useState(false); // State quản lý hiển thị menu
   const optionsRef = useRef(null); // Ref cho menu tùy chọn
+  const [isListening, setIsListening] = useState(false);
+  const [recognition, setRecognition] = useState(null);
+
+  const { t, i18n } = useTranslation("chatbot");
+
+  // Khởi tạo SpeechRecognition API
+  useEffect(() => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const rec = new SpeechRecognition();
+      rec.continuous = false;
+      rec.lang = i18n.language; // Đặt ngôn ngữ nhận dạng giọng nói theo ngôn ngữ i18n hiện tại
+      rec.onresult = (event) => {
+        const transcript = Array.from(event.results)
+          .map((result) => result[0])
+          .map((result) => result.transcript)
+          .join("");
+        setInput(transcript);
+      };
+      rec.onend = () => {
+        setIsListening(false);
+      };
+      rec.onerror = (event) => {
+        console.error("Speech Recognition Error:", event.error);
+        setIsListening(false);
+      };
+      setRecognition(rec);
+    } else {
+      console.warn("Speech Recognition API is not supported in this browser.");
+    }
+  }, [i18n.language]);
+
+  // Cập nhật ngôn ngữ nhận dạng giọng nói khi ngôn ngữ i18n thay đổi
+  useEffect(() => {
+    if (recognition) {
+      recognition.lang = i18n.language;
+    }
+  }, [i18n.language, recognition]);
 
   const fetchMessages = async () => {
     const response = await fetch(
@@ -189,7 +234,16 @@ const Chatbot = () => {
     };
   }, [optionsRef]);
 
-  const { t } = useTranslation("chatbot");
+  const handleSpeechInput = () => {
+    if (recognition) {
+      setIsListening(!isListening);
+      if (!isListening) {
+        recognition.start();
+      } else {
+        recognition.stop();
+      }
+    }
+  };
 
   return (
     <div className="relative w-full h-screen bg-white">
@@ -253,13 +307,21 @@ const Chatbot = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="w-full h-full px-4 bg-gray-chat rounded-lg"
-            disabled={isSending} // Vô hiệu hóa input khi đang gửi
+            disabled={isSending || isListening} // Vô hiệu hóa input khi đang gửi hoặc nghe giọng nói
           />
           <div className="flex items-center gap-4">
-            <button type="button" disabled={isSending}>
+            <button
+              type="button"
+              onClick={handleSpeechInput}
+              disabled={isSending}
+              className={isListening ? "text-primary" : ""} // Thêm class để highlight khi đang nghe
+            >
               <BiSolidMicrophone size="1.8rem" />
             </button>
-            <button type="submit" disabled={isSending || input.trim() === ""}>
+            <button
+              type="submit"
+              disabled={isSending || input.trim() === ""}
+            >
               <BiSolidSend size="1.8rem" />
             </button>
           </div>
