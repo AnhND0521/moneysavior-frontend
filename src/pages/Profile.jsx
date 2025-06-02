@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../contexts/LoginContext";
 import environment from "../environments/environment";
 import CustomCombobox from "../components/CustomCombobox";
+import { useTranslation } from "react-i18next";
 
 const LOGIN = 0;
 const SIGNUP = 1;
 const PROFILE = 2;
-
-const pageTitles = ["Đăng nhập", "Đăng ký", "Thông tin tài khoản"];
-const submitTitles = ["Đăng nhập", "Đăng ký", "Đăng xuất"];
 
 const Profile = () => {
   const { userUuid, setUserUuid, email, setEmail, fullName, setFullName } =
@@ -19,6 +17,10 @@ const Profile = () => {
   const [action, setAction] = useState(userUuid ? PROFILE : LOGIN);
   const [errors, setErrors] = useState({}); // State để lưu trữ lỗi
   const navigate = useNavigate();
+  const { t } = useTranslation("profile");
+
+  const pageTitles = [t("login"), t("register"), t("accountInfo")];
+  const submitTitles = [t("login"), t("register"), t("logout")];
 
   const [sampleEmails, setSampleEmails] = useState([]);
 
@@ -49,15 +51,15 @@ const Profile = () => {
     const newErrors = {};
 
     if (!emailInput.trim()) {
-      newErrors.email = "Email không được để trống";
+      newErrors.email = t("error.emptyEmail");
       isValid = false;
     } else if (!validateEmail(emailInput)) {
-      newErrors.email = "Email không đúng định dạng";
+      newErrors.email = t("error.invalidEmail");
       isValid = false;
     }
 
     if (action !== LOGIN && !fullNameInput.trim()) {
-      newErrors.fullName = "Tên đầy đủ không được để trống";
+      newErrors.fullName = t("error.emptyFullName");
       isValid = false;
     }
 
@@ -92,7 +94,7 @@ const Profile = () => {
         setAction(SIGNUP);
       }
     } else {
-      setErrors({ submit: "Đăng nhập không thành công" }); // Ví dụ lỗi chung khi đăng nhập
+      setErrors({ submit: t("error.failedToLogin") }); // Ví dụ lỗi chung khi đăng nhập
     }
   };
 
@@ -118,7 +120,7 @@ const Profile = () => {
       setAction(PROFILE);
       navigate("/");
     } else {
-      setErrors({ submit: "Đăng ký không thành công" }); // Ví dụ lỗi chung khi đăng ký
+      setErrors({ submit: t("failedToRegister") }); // Ví dụ lỗi chung khi đăng ký
     }
   };
 
@@ -176,7 +178,7 @@ const Profile = () => {
             <CustomCombobox
               label="Email"
               options={sampleEmails}
-              placeholder={"Nhập địa chỉ email của bạn"}
+              placeholder={t("enterYourEmail")}
               value={emailInput}
               onChange={handleEmailInputChange}
             />
@@ -193,7 +195,7 @@ const Profile = () => {
                 name="email"
                 id="email"
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
-                placeholder="Nhập địa chỉ email của bạn"
+                placeholder={t("enterYourEmail")}
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 disabled={action === PROFILE}
@@ -210,14 +212,14 @@ const Profile = () => {
               htmlFor="fullName"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Tên đầy đủ
+              {t("fullName")}
             </label>
             <input
               type="text"
               name="fullName"
               id="fullName"
               className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
-              placeholder="Nhập tên của bạn"
+              placeholder={t("enterYourFullName")}
               value={fullNameInput}
               onChange={(e) => setFullNameInput(e.target.value)}
               disabled={action === PROFILE}
@@ -245,7 +247,7 @@ const Profile = () => {
               className="w-full bg-red-400 text-white font-bold py-3 rounded-lg hover:bg-primary-dark focus:outline-none focus:shadow-outline"
               onClick={handleLogout}
             >
-              Hủy
+              {t("cancel")}
             </button>
           )}
         </div>

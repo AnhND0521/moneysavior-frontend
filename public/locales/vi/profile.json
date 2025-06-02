@@ -1,0 +1,17 @@
+{
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "register": "Đăng ký",
+    "accountInfo": "Thông tin tài khoản",
+    "error": {
+        "emptyEmail": "Email không được để trống",
+        "invalidEmail": "Email không đúng định dạng",
+        "emptyFullName": "Tên đầy đủ không được để trống",
+        "failedToLogin": "Đăng nhập không thành công",
+        "failedToRegister": "Đăng ký không thành công"
+    },
+    "enterYourEmail": "Nhập địa chỉ email của bạn",
+    "fullName": "Tên đầy đủ",
+    "enterYourFullName": "Nhập tên của bạn",
+    "cancel": "Huỷ"
+}
