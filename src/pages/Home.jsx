@@ -8,6 +8,7 @@ import { formatDateISO } from "../utils/dateFormatter";
 import environment from "../environments/environment";
 import NoTransactionsText from "../components/NoTransactionsText";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const { userUuid, fullName } = useContext(LoginContext);
@@ -80,13 +81,15 @@ const Home = () => {
     fetchCategorySummary();
   }, [userUuid, selectedOption]);
 
+  const { t } = useTranslation('home');
+
   return (
     <>
       <div className="relative w-full h-screen bg-white">
         <div className="w-full h-1/3 mb-6">
           <div className="w-full h-2/3 bg-primary px-4">
             <div className="w-full h-2/3 flex flex-col justify-center">
-              <p className="text-white text-sm">Xin chào,</p>
+              <p className="text-white text-sm">{t("greeting")}</p>
               <h3 className="text-white text-lg font-medium">{fullName}</h3>
             </div>
           </div>
@@ -96,7 +99,7 @@ const Home = () => {
               <div className="w-full h-full p-4 flex flex-col justify-between bg-secondary rounded-2xl shadow-xl text-white">
                 <div>
                   <h4 className="flex items-center gap-1 text-sm font-medium">
-                    Tổng số dư <BiChevronUp size="1.2rem" />
+                    {t("balance")} <BiChevronUp size="1.2rem" />
                   </h4>
                   <h2 className="text-2xl font-bold">
                     {overview.balance.toLocaleString()} ₫
@@ -108,7 +111,7 @@ const Home = () => {
                       <div className="p-1 rounded-full bg-white-transparent">
                         <BiUpArrowAlt />
                       </div>
-                      <p className="text-sm text-lightGray-text">Thu nhập</p>
+                      <p className="text-sm text-lightGray-text">{t("income")}</p>
                     </div>
                     <h3 className="font-semibold">
                       {overview.totalIncomes.toLocaleString()} ₫
@@ -119,7 +122,7 @@ const Home = () => {
                       <div className="p-1 rounded-full bg-white-transparent">
                         <BiDownArrowAlt />
                       </div>
-                      <p className="text-sm text-lightGray-text">Chi tiêu</p>
+                      <p className="text-sm text-lightGray-text">{t("expense")}</p>
                     </div>
                     <h3 className="font-semibold">
                       {overview.totalExpenses.toLocaleString()} ₫

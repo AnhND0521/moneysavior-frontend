@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 const NoTransactionsText = () => {
+  const { t } = useTranslation('common');
   return (
     <p className="text-center text-gray-600 mt-10">
-      Chưa có giao dịch nào. <br />
-      Bắt đầu ghi chép chi tiêu ngay!
+      {t('noTransactions')} <br />
+      {t('startNow')}
     </p>
   );
 };
