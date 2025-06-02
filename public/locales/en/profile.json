@@ -1,0 +1,17 @@
+{
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "accountInfo": "Account Information",
+    "error": {
+        "emptyEmail": "Email cannot be empty",
+        "invalidEmail": "Invalid email format",
+        "emptyFullName": "Full name cannot be empty",
+        "failedToLogin": "Login failed",
+        "failedToRegister": "Registration failed"
+    },
+    "enterYourEmail": "Enter your email address",
+    "fullName": "Full Name",
+    "enterYourFullName": "Enter your name",
+    "cancel": "Cancel"
+}

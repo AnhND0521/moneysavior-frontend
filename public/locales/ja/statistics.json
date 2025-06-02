@@ -1,0 +1,9 @@
+{
+    "statistics": "統計",
+    "expense": "支出",
+    "income": "収入",
+    "largestExpenses": "最も多い支出",
+    "largestIncomes": "最も多い収入",
+    "smallestExpenses": "最も少ない支出",
+    "smallestIncomes": "最も少ない収入"
+}

@@ -1,0 +1,12 @@
+{
+    "linkAccount": "Link bank account",
+    "message1": "For security reasons, in this demo, we will only link the sample account below to the app, and you will not be able to change to your own account.",
+    "message2": "However, you can try transferring money to the account below to see the income transaction synchronized into the app. For convenience, you can get the transfer QR code ",
+    "message3": ".",
+    "here": "here",
+    "bank": "Bank",
+    "accountNumber": "Account number",
+    "confirmLink": "Confirm link",
+    "linkSuccessfully": "Bank account linked successfully!",
+    "cancel": "Cancel"
+}

@@ -1,0 +1,9 @@
+{
+    "statistics": "Statistics",
+    "expense": "Expense",
+    "income": "Income",
+    "largestExpenses": "Largest Expenses",
+    "largestIncomes": "Largest Incomes",
+    "smallestExpenses": "Smallest Expenses",
+    "smallestIncomes": "Smallest Incomes"
+}

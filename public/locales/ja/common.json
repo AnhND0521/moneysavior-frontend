@@ -1,0 +1,11 @@
+{
+    "day": "日",
+    "week": "週",
+    "month": "月",
+    "year": "年",
+    "noTransactions": "取引がありません。",
+    "startNow": "今すぐ支出の記録を始めましょう！",
+    "recorded": "記録済み",
+    "expense": "支出",
+    "income": "収入"
+}

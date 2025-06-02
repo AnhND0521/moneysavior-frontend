@@ -1,0 +1,17 @@
+{
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "register": "登録",
+    "accountInfo": "アカウント情報",
+    "error": {
+        "emptyEmail": "メールアドレスを入力してください",
+        "invalidEmail": "メールアドレスの形式が正しくありません",
+        "emptyFullName": "氏名を入力してください",
+        "failedToLogin": "ログインに失敗しました",
+        "failedToRegister": "登録に失敗しました"
+    },
+    "enterYourEmail": "メールアドレスを入力してください",
+    "fullName": "氏名",
+    "enterYourFullName": "お名前を入力してください",
+    "cancel": "キャンセル"
+}
