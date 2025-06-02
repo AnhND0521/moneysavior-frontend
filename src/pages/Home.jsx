@@ -7,7 +7,7 @@ import getDateOptions from "../utils/getDateOptions";
 import { formatDateISO } from "../utils/dateFormatter";
 import environment from "../environments/environment";
 import NoTransactionsText from "../components/NoTransactionsText";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const Home = () => {
@@ -17,6 +17,7 @@ const Home = () => {
   const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
   const startDate = formatDateISO(firstDayOfMonth);
   const endDate = formatDateISO(lastDayOfMonth);
+  const navigate = useNavigate();
 
   const [overview, setOverview] = useState({
     balance: 0,
@@ -41,7 +42,10 @@ const Home = () => {
   );
 
   const fetchOverview = async () => {
-    if (userUuid === null) return;
+    if (userUuid === null) {
+      navigate("/profile");
+      return;
+    }
     const response = await fetch(
       `${environment.serverURL}/api/v1/reports/overview?userUuid=${userUuid}&startDate=${startDate}&endDate=${endDate}`
     );
@@ -75,7 +79,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchOverview();
-  }, [userUuid]);
+  }, [userUuid, startDate, endDate]);
 
   useEffect(() => {
     fetchCategorySummary();

@@ -8,10 +8,10 @@ export const LoginProvider = ({ children }) => {
     localStorage.getItem("userUuid") || null
   );
   const [email, setEmail] = useState(
-    localStorage.getItem("email") || "nguyenducanh2105@gmail.com"
+    localStorage.getItem("email") || null
   );
   const [fullName, setFullName] = useState(
-    localStorage.getItem("fullName") || ""
+    localStorage.getItem("fullName") || null
   );
 
   const saveUserUuid = (uuid) => {
@@ -39,33 +39,33 @@ export const LoginProvider = ({ children }) => {
     }
   };
 
-  const init = async () => {
-    if (userUuid === null) {
-      const data = {
-        email: email,
-      };
-      const response = await fetch(
-        `${environment.serverURL}/api/v1/accounts:fake-login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+  // const init = async () => {
+  //   if (userUuid === null) {
+  //     const data = {
+  //       email: email,
+  //     };
+  //     const response = await fetch(
+  //       `${environment.serverURL}/api/v1/accounts:fake-login`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(data),
+  //       }
+  //     );
 
-      if (response.ok) {
-        const responseData = await response.json();
-        setUserUuid(responseData.userUuid);
-        setFullName(responseData.fullName);
-      }
-    }
-  };
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+  //       setUserUuid(responseData.userUuid);
+  //       setFullName(responseData.fullName);
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    init();
-  }, []);
+  // useEffect(() => {
+  //   init();
+  // }, []);
 
   return (
     <LoginContext.Provider

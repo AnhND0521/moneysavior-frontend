@@ -10,6 +10,7 @@ import TransactionForm from "./pages/TransactionForm";
 import { LoginProvider } from "./contexts/LoginContext";
 import BankAccountForm from "./pages/BankAccountForm";
 import BankQRCode from "./pages/BankQRCode";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   return (
@@ -17,18 +18,71 @@ function App() {
       <LoginProvider>
         <BrowserRouter>
           <Routes>
-            <Route index element={<Home />} />
-            <Route path="statistics" element={<Statistics />} />
-            <Route path="history" element={<History />} />
-            <Route path="chatbot" element={<Chatbot />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="transactions/add" element={<TransactionForm />} />
+            <Route
+              path="/"
+              element={
+                <RequireAuth>
+                  <Home />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="statistics"
+              element={
+                <RequireAuth>
+                  <Statistics />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="history"
+              element={
+                <RequireAuth>
+                  <History />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="chatbot"
+              element={
+                <RequireAuth>
+                  <Chatbot />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="transactions/add"
+              element={
+                <RequireAuth>
+                  <TransactionForm />
+                </RequireAuth>
+              }
+            />
             <Route
               path="transactions/edit/:uuid"
-              element={<TransactionForm />}
+              element={
+                <RequireAuth>
+                  <TransactionForm />
+                </RequireAuth>
+              }
             />
-            <Route path="bank" element={<BankAccountForm />} />
-            <Route path="bank/qr" element={<BankQRCode />} />
+            <Route
+              path="bank"
+              element={
+                <RequireAuth>
+                  <BankAccountForm />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="bank/qr"
+              element={
+                <RequireAuth>
+                  <BankQRCode />
+                </RequireAuth>
+              }
+            />
             <Route path="*" element={<Home />} />
           </Routes>
           <Navbar />

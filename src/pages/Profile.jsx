@@ -49,7 +49,11 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    setCurrentLanguage(i18n.language);
+    let lang = i18n.language;
+    if (lang.length > 2) {
+      lang = lang.split("-")[0];
+    }
+    setCurrentLanguage(lang);
   }, [i18n.language]);
 
   const validateEmail = (email) => {
@@ -244,26 +248,28 @@ const Profile = () => {
             )}
           </div>
         )}
-        <div>
-          <label
-            htmlFor="language"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            {t("language")}:
-          </label>
-          <select
-            id="language"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
-            value={currentLanguage}
-            onChange={changeLanguage}
-          >
-            {availableLanguages.map((lang) => (
-              <option key={lang} value={lang}>
-                {languageLabels[lang]}
-              </option>
-            ))}
-          </select>
-        </div>
+        {action === PROFILE && (
+          <div>
+            <label
+              htmlFor="language"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              {t("language")}:
+            </label>
+            <select
+              id="language"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
+              value={currentLanguage}
+              onChange={changeLanguage}
+            >
+              {availableLanguages.map((lang) => (
+                <option key={lang} value={lang}>
+                  {languageLabels[lang]}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         {errors.submit && (
           <p className="text-red-500 text-sm italic text-center">
             {errors.submit}
