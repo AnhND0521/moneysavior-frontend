@@ -10,8 +10,10 @@
         "failedToLogin": "ログインに失敗しました",
         "failedToRegister": "登録に失敗しました"
     },
+    "email": "メールアドレス",
     "enterYourEmail": "メールアドレスを入力してください",
     "fullName": "氏名",
     "enterYourFullName": "お名前を入力してください",
+    "language": "言語",
     "cancel": "キャンセル"
 }

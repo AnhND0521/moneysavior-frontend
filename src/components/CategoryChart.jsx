@@ -1,21 +1,29 @@
-import React from 'react';
-import { Pie, PieChart, Cell, ResponsiveContainer } from 'recharts';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Pie, PieChart, Cell, ResponsiveContainer } from "recharts";
 
 const CategoryChart = (props) => {
+  const { t } = useTranslation("common");
   const categorySummary = props.categorySummary;
-  const data = categorySummary.map(category => {
+  const data = categorySummary.map((category) => {
     return {
-      name: category.categoryName,
+      name: t("categories." + category.categoryName),
       value: category.totalAmount,
-    }
+    };
   });
 
-  const colors = [
-    "#7678F5", "#DA4348", "#FFA216", "#4FBE56", "#DE62DE"
-  ]
+  const colors = ["#7678F5", "#DA4348", "#FFA216", "#4FBE56", "#DE62DE"];
 
   const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -23,12 +31,20 @@ const CategoryChart = (props) => {
 
     return (
       <>
-        {percent * 100 >= 5 &&
-          <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central">
-            <tspan x={x} dy="-0.6em">{name}</tspan>
+        {percent * 100 >= 5 && (
+          <text
+            x={x}
+            y={y}
+            fill="white"
+            textAnchor="middle"
+            dominantBaseline="central"
+          >
+            <tspan x={x} dy="-0.6em">
+              {name}
+            </tspan>
             <tspan x={x} dy="1.2em">{`${(percent * 100).toFixed(0)}%`}</tspan>
           </text>
-        }
+        )}
       </>
     );
   };
@@ -36,7 +52,7 @@ const CategoryChart = (props) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <PieChart width={240} height={240}>
-        <Pie 
+        <Pie
           data={data}
           dataKey="value"
           cx="50%"
@@ -55,7 +71,7 @@ const CategoryChart = (props) => {
         </Pie>
       </PieChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};
 
-export default CategoryChart
+export default CategoryChart;

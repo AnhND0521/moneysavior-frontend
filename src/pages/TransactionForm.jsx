@@ -249,7 +249,7 @@ const TransactionForm = () => {
               <option value="">{t("selectCategory")}</option>
               {categories.map((cat) => (
                 <option key={cat} value={cat}>
-                  {cat}
+                  {t("categories." + cat)}
                 </option>
               ))}
             </select>

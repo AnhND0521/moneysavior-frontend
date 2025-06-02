@@ -1,7 +1,17 @@
 {
-    "transactionHistory": "Lịch sử giao dịch",
-    "month": "Tháng",
-    "all": "Tất cả",
-    "income": "Thu nhập",
-    "expense": "Chi tiêu"
+  "transactionHistory": "Lịch sử giao dịch",
+  "month": "Tháng",
+  "all": "Tất cả",
+  "income": "Thu nhập",
+  "expense": "Chi tiêu",
+  "categories": {
+    "Nhà ở": "Nhà ở",
+    "Đi lại": "Đi lại",
+    "Ăn uống": "Ăn uống",
+    "Mua sắm": "Mua sắm",
+    "Giải trí": "Giải trí",
+    "Giáo dục": "Giáo dục",
+    "Sức khỏe": "Sức khoẻ",
+    "Khác": "Khác"
+  }
 }

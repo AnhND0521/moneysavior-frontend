@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { BiChevronLeft, BiDotsVertical, BiSolidMicrophone, BiSolidSend } from "react-icons/bi";
+import {
+  BiChevronLeft,
+  BiDotsVertical,
+  BiSolidMicrophone,
+  BiSolidSend,
+} from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "../contexts/LoginContext";
 import Message from "../components/Message";
@@ -42,17 +47,21 @@ const Chatbot = () => {
             createdAt: message.createdAt,
           };
 
-          const transactionMessage = {
-            messageType: "transaction",
-            uuid: message.transaction.uuid,
-            type: message.transaction.type,
-            category: message.transaction.category,
-            description: message.transaction.description,
-            amount: message.transaction.amount,
-            date: message.transaction.date,
-          };
+          newMessages.push(botMessage);
 
-          newMessages.push(botMessage, transactionMessage);
+          if (message.transaction) {
+            const transactionMessage = {
+              messageType: "transaction",
+              uuid: message.transaction.uuid,
+              type: message.transaction.type,
+              category: message.transaction.category,
+              description: message.transaction.description,
+              amount: message.transaction.amount,
+              date: message.transaction.date,
+            };
+
+            newMessages.push(transactionMessage);
+          }
         }
       });
 
@@ -165,7 +174,7 @@ const Chatbot = () => {
   const handleLinkBank = () => {
     navigate("/bank");
     setIsOptionsOpen(false);
-  }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -192,7 +201,7 @@ const Chatbot = () => {
           <BiChevronLeft size="1.8rem" />
         </Link>
         <div className="w-full h-full flex items-center justify-center">
-          <h3 className="font-bold text-lg">{t('addTransaction')}</h3>
+          <h3 className="font-bold text-lg">{t("addTransaction")}</h3>
         </div>
         <div className="absolute right-4" ref={optionsRef}>
           <button onClick={toggleOptions}>
@@ -204,13 +213,13 @@ const Chatbot = () => {
                 onClick={handleAddManual}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
               >
-                {t('addManually')}
+                {t("addManually")}
               </button>
               <button
                 onClick={handleLinkBank}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
               >
-                {t('linkAccount')}
+                {t("linkAccount")}
               </button>
             </div>
           )}
@@ -219,9 +228,7 @@ const Chatbot = () => {
       <section className="absolute top-1/10 w-full h-9/10 p-6 flex flex-col justify-between gap-4 rounded-2xl bg-white z-50">
         <div className="w-full h-9/10 flex flex-col">
           <div className="w-full mb-4 flex flex-col items-center gap-2">
-            <p className="text-gray-text text-sm">
-              {t('inputHere')}
-            </p>
+            <p className="text-gray-text text-sm">{t("inputHere")}</p>
             <div className="p-3 bg-primary rounded-full ">
               <img src="/chatbot.svg" alt="" />
             </div>
@@ -242,7 +249,7 @@ const Chatbot = () => {
             type="text"
             name="message"
             id="message"
-            placeholder={t('inputTransaction')}
+            placeholder={t("inputTransaction")}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="w-full h-full px-4 bg-gray-chat rounded-lg"

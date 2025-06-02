@@ -1,17 +1,10 @@
 {
-  "transactionHistory": "取引履歴",
-  "month": "",
-  "all": "すべて",
-  "income": "収入",
-  "expense": "支出",
-  "categories": {
     "Nhà ở": "住居",
     "Đi lại": "交通",
     "Ăn uống": "食費",
     "Mua sắm": "買い物",
     "Giải trí": "娯楽",
     "Giáo dục": "教育",
-    "Sức khỏe": "健康",
+    "Sức khoẻ": "健康",
     "Khác": "その他"
-  }
 }

@@ -1,24 +1,34 @@
 {
-    "error": {
-        "typeRequired": "取引タイプを選択してください",
-        "categoryRequired": "カテゴリを選択してください",
-        "descriptionRequired": "説明を入力してください",
-        "amountMustBePositive": "金額は0より大きくなければなりません",
-        "dateRequired": "日付を入力してください"
-    },
-    "editTransaction": "取引を編集",
-    "addTransaction": "取引を追加",
-    "transactionType": "取引タイプ",
-    "selectType": "取引タイプを選択",
-    "expense": "支出",
-    "income": "収入",
-    "category": "カテゴリ",
-    "selectCategory": "カテゴリを選択",
-    "description": "説明",
-    "amount": "金額",
-    "date": "日付",
-    "saveChanges": "変更を保存",
-    "delete": "削除",
-    "inputDescription": "取引の説明を入力",
-    "inputAmount": "金額を入力"
+  "error": {
+    "typeRequired": "取引タイプを選択してください",
+    "categoryRequired": "カテゴリを選択してください",
+    "descriptionRequired": "説明を入力してください",
+    "amountMustBePositive": "金額は0より大きくなければなりません",
+    "dateRequired": "日付を入力してください"
+  },
+  "editTransaction": "取引を編集",
+  "addTransaction": "取引を追加",
+  "transactionType": "取引タイプ",
+  "selectType": "取引タイプを選択",
+  "expense": "支出",
+  "income": "収入",
+  "category": "カテゴリ",
+  "selectCategory": "カテゴリを選択",
+  "description": "説明",
+  "amount": "金額",
+  "date": "日付",
+  "saveChanges": "変更を保存",
+  "delete": "削除",
+  "inputDescription": "取引の説明を入力",
+  "inputAmount": "金額を入力",
+  "categories": {
+    "Nhà ở": "住居",
+    "Đi lại": "交通",
+    "Ăn uống": "食費",
+    "Mua sắm": "買い物",
+    "Giải trí": "娯楽",
+    "Giáo dục": "教育",
+    "Sức khỏe": "健康",
+    "Khác": "その他"
+  }
 }

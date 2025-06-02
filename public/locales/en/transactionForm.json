@@ -1,24 +1,34 @@
 {
-    "error": {
-        "typeRequired": "Transaction type is required",
-        "categoryRequired": "Category is required",
-        "descriptionRequired": "Description is required",
-        "amountMustBePositive": "Amount must be greater than 0",
-        "dateRequired": "Date is required"
-    },
-    "editTransaction": "Edit Transaction",
-    "addTransaction": "Add Transaction",
-    "transactionType": "Transaction Type",
-    "selectType": "Select transaction type",
-    "expense": "Expense",
-    "income": "Income",
-    "category": "Category",
-    "selectCategory": "Select category",
-    "description": "Description",
-    "amount": "Amount",
-    "date": "Date",
-    "saveChanges": "Save Changes",
-    "delete": "Delete",
-    "inputDescription": "Enter transaction description",
-    "inputAmount": "Enter amount"
+  "error": {
+    "typeRequired": "Transaction type is required",
+    "categoryRequired": "Category is required",
+    "descriptionRequired": "Description is required",
+    "amountMustBePositive": "Amount must be greater than 0",
+    "dateRequired": "Date is required"
+  },
+  "editTransaction": "Edit Transaction",
+  "addTransaction": "Add Transaction",
+  "transactionType": "Transaction Type",
+  "selectType": "Select transaction type",
+  "expense": "Expense",
+  "income": "Income",
+  "category": "Category",
+  "selectCategory": "Select category",
+  "description": "Description",
+  "amount": "Amount",
+  "date": "Date",
+  "saveChanges": "Save Changes",
+  "delete": "Delete",
+  "inputDescription": "Enter transaction description",
+  "inputAmount": "Enter amount",
+  "categories": {
+    "Nhà ở": "Housing",
+    "Đi lại": "Transportation",
+    "Ăn uống": "Food",
+    "Mua sắm": "Shopping",
+    "Giải trí": "Entertainment",
+    "Giáo dục": "Education",
+    "Sức khỏe": "Health",
+    "Khác": "Other"
+  }
 }

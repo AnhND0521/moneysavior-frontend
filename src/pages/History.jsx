@@ -145,7 +145,7 @@ const History = () => {
               value={"EXPENSE|" + category}
               className="text-xs"
             >
-              {t("expense")} - {category}
+              {t("expense")} - {t("categories." + category)}
             </option>
           ))}
         </select>

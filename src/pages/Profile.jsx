@@ -17,12 +17,19 @@ const Profile = () => {
   const [action, setAction] = useState(userUuid ? PROFILE : LOGIN);
   const [errors, setErrors] = useState({}); // State để lưu trữ lỗi
   const navigate = useNavigate();
-  const { t } = useTranslation("profile");
+  const { t, i18n } = useTranslation("profile");
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   const pageTitles = [t("login"), t("register"), t("accountInfo")];
   const submitTitles = [t("login"), t("register"), t("logout")];
 
   const [sampleEmails, setSampleEmails] = useState([]);
+  const availableLanguages = ["en", "vi", "ja"]; // Thêm các ngôn ngữ bạn hỗ trợ
+  const languageLabels = {
+    en: "English",
+    vi: "Tiếng Việt",
+    ja: "日本語",
+  };
 
   useEffect(() => {
     setAction(userUuid ? PROFILE : LOGIN);
@@ -40,6 +47,10 @@ const Profile = () => {
     };
     fetchSampleEmails();
   }, []);
+
+  useEffect(() => {
+    setCurrentLanguage(i18n.language);
+  }, [i18n.language]);
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -164,6 +175,10 @@ const Profile = () => {
     setEmailInput(newEmail);
   };
 
+  const changeLanguage = (event) => {
+    i18n.changeLanguage(event.target.value);
+  };
+
   return (
     <form
       className="flex flex-col items-center justify-center w-full h-screen p-8 bg-gray-100"
@@ -188,7 +203,7 @@ const Profile = () => {
                 htmlFor="email"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                Email
+                {t("email")}:
               </label>
               <input
                 type="text"
@@ -229,6 +244,26 @@ const Profile = () => {
             )}
           </div>
         )}
+        <div>
+          <label
+            htmlFor="language"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            {t("language")}:
+          </label>
+          <select
+            id="language"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary text-gray-700"
+            value={currentLanguage}
+            onChange={changeLanguage}
+          >
+            {availableLanguages.map((lang) => (
+              <option key={lang} value={lang}>
+                {languageLabels[lang]}
+              </option>
+            ))}
+          </select>
+        </div>
         {errors.submit && (
           <p className="text-red-500 text-sm italic text-center">
             {errors.submit}

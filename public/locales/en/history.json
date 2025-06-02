@@ -1,7 +1,17 @@
 {
-    "transactionHistory": "Transaction History",
-    "month": "",
-    "all": "All",
-    "income": "Income",
-    "expense": "Expense"
+  "transactionHistory": "Transaction History",
+  "month": "",
+  "all": "All",
+  "income": "Income",
+  "expense": "Expense",
+  "categories": {
+    "Nhà ở": "Housing",
+    "Đi lại": "Transportation",
+    "Ăn uống": "Food",
+    "Mua sắm": "Shopping",
+    "Giải trí": "Entertainment",
+    "Giáo dục": "Education",
+    "Sức khỏe": "Health",
+    "Khác": "Other"
+  }
 }

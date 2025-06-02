@@ -10,8 +10,10 @@
         "failedToLogin": "Login failed",
         "failedToRegister": "Registration failed"
     },
+    "email": "Email",
     "enterYourEmail": "Enter your email address",
     "fullName": "Full Name",
     "enterYourFullName": "Enter your name",
+    "language": "Language",
     "cancel": "Cancel"
 }

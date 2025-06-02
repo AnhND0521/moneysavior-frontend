@@ -1,11 +1,21 @@
 {
-    "day": "Ngày",
-    "week": "Tuần",
-    "month": "Tháng",
-    "year": "Năm",
-    "noTransactions": "Không có giao dịch nào.",
-    "startNow": "Bắt đầu ghi chép chi tiêu ngay!",
-    "recorded": "Đã ghi nhận",
-    "expense": "Chi tiêu",
-    "income": "Thu nhập"
+  "day": "Ngày",
+  "week": "Tuần",
+  "month": "Tháng",
+  "year": "Năm",
+  "noTransactions": "Không có giao dịch nào.",
+  "startNow": "Bắt đầu ghi chép chi tiêu ngay!",
+  "recorded": "Đã ghi nhận",
+  "expense": "Chi tiêu",
+  "income": "Thu nhập",
+  "categories": {
+    "Nhà ở": "Nhà ở",
+    "Đi lại": "Đi lại",
+    "Ăn uống": "Ăn uống",
+    "Mua sắm": "Mua sắm",
+    "Giải trí": "Giải trí",
+    "Giáo dục": "Giáo dục",
+    "Sức khỏe": "Sức khoẻ",
+    "Khác": "Khác"
+  }
 }

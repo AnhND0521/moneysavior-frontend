@@ -1,11 +1,21 @@
 {
-    "day": "日",
-    "week": "週",
-    "month": "月",
-    "year": "年",
-    "noTransactions": "取引がありません。",
-    "startNow": "今すぐ支出の記録を始めましょう！",
-    "recorded": "記録済み",
-    "expense": "支出",
-    "income": "収入"
+  "day": "日",
+  "week": "週",
+  "month": "月",
+  "year": "年",
+  "noTransactions": "取引がありません。",
+  "startNow": "今すぐ支出の記録を始めましょう！",
+  "recorded": "記録済み",
+  "expense": "支出",
+  "income": "収入",
+  "categories": {
+    "Nhà ở": "住居",
+    "Đi lại": "交通",
+    "Ăn uống": "食費",
+    "Mua sắm": "買い物",
+    "Giải trí": "娯楽",
+    "Giáo dục": "教育",
+    "Sức khỏe": "健康",
+    "Khác": "その他"
+  }
 }

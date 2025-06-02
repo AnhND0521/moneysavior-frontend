@@ -29,7 +29,7 @@ const TransactionMessage = (props) => {
         ) : (
           <p className="text-sm text-gray-text">
             {"> " + t("expense") + " > "}
-            {category}
+            {t("categories." + category)}
           </p>
         )}
       </div>

@@ -10,8 +10,10 @@
         "failedToLogin": "Đăng nhập không thành công",
         "failedToRegister": "Đăng ký không thành công"
     },
+    "email": "Email",
     "enterYourEmail": "Nhập địa chỉ email của bạn",
     "fullName": "Tên đầy đủ",
     "enterYourFullName": "Nhập tên của bạn",
+    "language": "Ngôn ngữ",
     "cancel": "Huỷ"
 }

@@ -1,11 +1,21 @@
 {
-    "day": "Day",
-    "week": "Week",
-    "month": "Month",
-    "year": "Year",
-    "noTransactions": "No transactions.",
-    "startNow": "Start recording your expenses now!",
-    "recorded": "Recorded",
-    "expense": "Expense",
-    "income": "Income"
+  "day": "Day",
+  "week": "Week",
+  "month": "Month",
+  "year": "Year",
+  "noTransactions": "No transactions.",
+  "startNow": "Start recording your expenses now!",
+  "recorded": "Recorded",
+  "expense": "Expense",
+  "income": "Income",
+  "categories": {
+    "Nhà ở": "Housing",
+    "Đi lại": "Transportation",
+    "Ăn uống": "Food",
+    "Mua sắm": "Shopping",
+    "Giải trí": "Entertainment",
+    "Giáo dục": "Education",
+    "Sức khỏe": "Health",
+    "Khác": "Other"
+  }
 }
