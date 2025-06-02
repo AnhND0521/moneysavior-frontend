@@ -6,6 +6,7 @@ import { LoginContext } from "../contexts/LoginContext";
 import changeMonth from "../utils/changeMonth";
 import environment from "../environments/environment";
 import NoTransactionsText from "../components/NoTransactionsText";
+import { useTranslation } from "react-i18next";
 
 const History = () => {
   const { userUuid } = useContext(LoginContext);
@@ -80,6 +81,7 @@ const History = () => {
     console.log("Filter: ", newFilter);
     setFilter(newFilter);
   };
+  const { t } = useTranslation("history");
 
   return (
     <div className="relative w-full h-screen bg-white">
@@ -88,7 +90,7 @@ const History = () => {
           <BiChevronLeft size="1.8rem" />
         </Link>
         <div className="w-full h-full flex items-center justify-center">
-          <h3 className="font-bold text-lg">Lịch sử giao dịch</h3>
+          <h3 className="font-bold text-lg">{t("transactionHistory")}</h3>
         </div>
         <button href="/" className="absolute right-4">
           <BiDownload size="1.8rem" />
@@ -108,7 +110,7 @@ const History = () => {
             }}
           />
           <p className="font-semibold">
-            Tháng {filter.month}/{filter.year}
+            {t("month")} {filter.month}/{filter.year}
           </p>
           <BiChevronRight
             size="1.2rem"
@@ -129,13 +131,13 @@ const History = () => {
           onChange={handleFilterChange}
         >
           <option key="ALL" value="ALL" className="text-xs">
-            Tất cả
+            {t("all")}
           </option>
           <option key="INCOME" value="INCOME" className="text-xs">
-            Thu nhập
+            {t("income")}
           </option>
           <option key="EXPENSE" value="EXPENSE" className="text-xs">
-            Chi tiêu
+            {t("expense")}
           </option>
           {categories.map((category) => (
             <option
@@ -143,7 +145,7 @@ const History = () => {
               value={"EXPENSE|" + category}
               className="text-xs"
             >
-              Chi tiêu - {category}
+              {t("expense")} - {category}
             </option>
           ))}
         </select>
