@@ -3,5 +3,5 @@
     "addManually": "Add manually",
     "linkAccount": "Link bank account",
     "inputHere": "Record your income and expenses here!",
-    "inputTransaction": "Enter income/expense..."
+    "inputTransaction": "Enter income/expense (e.g. shopping 100000)"
 }
